@@ -32,10 +32,32 @@ function mac_link_files() {
     rm -f ~/.gitconfig
     ln -s $(pwd)/settings/gitconfig ~/.gitconfig
 
+    ## SSH
+    mkdir -p ~/.ssh/
+    rm -rf ~/.ssh/config
+    ln -s $(pwd)/settings/ssh ~/.ssh/config
+
     # Fixup VSCode settings path
     mkdir -p "$VSCODE"
     rm -f "$VSCODE/settings.json"
     ln -s $(pwd)/settings/vscode.json "$VSCODE/settings.json"
+  fi
+}
+
+function link_zsh() {
+  if [[ ! $(pwd) -ef $HOME ]]; then
+    rm -f ~/.zshrc
+    ln -s $(pwd)/settings/zshrc ~/.zshrc
+
+    rm -f ~/.zshenv
+    ln -s $(pwd)/settings/zshenv ~/.zshenv
+
+    mkdir -p ~/.config/
+    rm -rf ~/.config/zsh
+    ln -s $(pwd)/config/zsh ~/.config/
+
+    rm -f ~/.p10k.zsh
+    ln -s $(pwd)/config/zsh/p10k.zsh ~/.p10k.zsh
   fi
 }
 
@@ -44,4 +66,8 @@ then
   echo '🔗 Linking Mac files.'
   echo `date +"%Y-%m-%d %T"`
   mac_link_files
+  link_zsh
+elif [ $LINUX ]
+then
+  link_zsh
 fi
