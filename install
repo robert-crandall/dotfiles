@@ -61,13 +61,40 @@ function link_zsh() {
   fi
 }
 
+function link_fish() {
+  if [[ ! $(pwd) -ef $HOME ]]; then
+    rm -rf ~/.config/fish
+    ln -s $(pwd)/config/fish ~/.config/
+
+    rm -f ~/.config/starship.toml
+    ln -s $(pwd)/config/starship.toml ~/.config/starship.toml
+  fi
+}
+
+function install_starship() {
+  if ! which starship > /dev/null
+  then
+    if [ $MACOS ]
+    then
+      brew install --cask finicky
+      curl -fsSL https://starship.rs/install.sh | sh
+    elif [ $LINUX ]
+    then
+      curl -sL https://starship.rs/install.sh | sh -s -- -y
+    fi
+    sleep 5
+  fi
+}
+
 if [ $MACOS ]
 then
   echo '🔗 Linking Mac files.'
   echo `date +"%Y-%m-%d %T"`
+  install_starship
   mac_link_files
-  link_zsh
+  link_fish
 elif [ $LINUX ]
 then
-  link_zsh
+  install_starship
+  link_fish
 fi
