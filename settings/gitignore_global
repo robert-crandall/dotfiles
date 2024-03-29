@@ -1,0 +1,7 @@
+.history
+.idea
+.vscode
+*.old
+.env
+*.sqlite3
+*.sql

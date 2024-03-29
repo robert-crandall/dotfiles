@@ -1,0 +1,47 @@
+#!/bin/bash
+# GitHub codespaces setup. This file is run automatically on codespaces startup.
+# See https://docs.github.com/en/codespaces/customizing-your-codespace/personalizing-github-codespaces-for-your-account
+
+exec > >(tee -i $HOME/dotfiles_install.log)
+exec 2>&1
+set -x
+
+[ $(uname -s) = "Darwin" ] && export MACOS=1 && export UNIX=1
+[ $(uname -s) = "Linux" ] && export LINUX=1 && export UNIX=1
+uname -s | grep -q "_NT-" && export WINDOWS=1
+
+if [ $MACOS ]
+then
+  VSCODE="$HOME/Library/Application Support/Code/User"
+elif [ $LINUX ]
+then
+  VSCODE="$HOME/.config/Code/User"
+elif [ $WINDOWS ]
+then
+  VSCODE="$APPDATA/Code/User"
+fi
+
+function mac_link_files() {
+  if [[ ! $(pwd) -ef $HOME ]]; then
+    mkdir -p ~/.config/
+
+    ## Git config
+    rm -f ~/.gitignore_global
+    ln -s $(pwd)/settings/gitignore_global ~/.gitignore_global
+
+    rm -f ~/.gitconfig
+    ln -s $(pwd)/settings/gitconfig ~/.gitconfig
+
+    # Fixup VSCode settings path
+    mkdir -p "$VSCODE"
+    rm -f "$VSCODE/settings.json"
+    ln -s $(pwd)/settings/vscode.json "$VSCODE/settings.json"
+  fi
+}
+
+if [ $MACOS ]
+then
+  echo '🔗 Linking Mac files.'
+  echo `date +"%Y-%m-%d %T"`
+  mac_link_files
+fi
