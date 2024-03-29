@@ -92,9 +92,11 @@ then
   echo `date +"%Y-%m-%d %T"`
   install_starship
   mac_link_files
+  link_zsh
   link_fish
 elif [ $LINUX ]
 then
   install_starship
+  link_zsh
   link_fish
 fi
