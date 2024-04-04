@@ -1,1 +1,0 @@
-set -Ux BASE16_SHELL_SET_BACKGROUND false
