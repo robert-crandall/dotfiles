@@ -1,0 +1,15 @@
+name: Test install script
+
+on: push
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run install script
+      run: ./script/bootstrap
