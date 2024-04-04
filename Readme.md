@@ -11,3 +11,4 @@ My installation command for Mac and Codespaces
 ```
 chezmoi add ~/.zshenv --recursive
 ```
+Test chezmoi
