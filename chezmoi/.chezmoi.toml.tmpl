@@ -9,6 +9,7 @@ sourceDir = "{{ .chezmoi.sourceDir }}"
   codespaces = {{ $codespaces }}
   github_workspace = {{ $github_workspace }}
   remote_containers = {{ $remote_containers }}
+  username = "robert-crandall"
 {{- if or $ci $codespaces $github_workspace $remote_containers }}
   email = "robert-crandall@github.com"
 {{- else }}{{/* Interactive setup so prompt for install type */}}

@@ -4,11 +4,11 @@
   # Don't prompt for commit messages for merge commits.
   mergeoptions = --no-edit
 
+{{- if (eq .chezmoi.os "darwin") }}
 [user]
-  # Never use the system info if the user info isn't set; error instead.
-  useConfigOnly = true
   name = Robert Crandall
   email = {{ .email | quote }}
+{{- end }}
 
 [github]
   user = robert-crandall
@@ -39,6 +39,7 @@
   # Remove all local branches that were tracking remote branches that have been deleted.
   # We use the for loop because we can't pipe to `xargs -r git branch -D` as xargs on macos doesn't accept `-r` to ignore empty cases
   cleanup = "!git switch $(git db) && git pull --rebase --prune && for b in $(git branch --list --format '%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)'); do git branch -D $b; done"
+  undo = "!git reset --hard && git clean -fd"
   
 [gist]
   browse = true  # Open GitHub Gist in browser after submission.

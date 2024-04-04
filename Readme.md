@@ -6,3 +6,8 @@ My installation command for Mac and Codespaces
 
 * For Mac, also run Ruby steps from <https://mac.install.guide/rubyonrails/1>
 
+## Chezmoi
+
+```
+chezmoi add ~/.zshenv --recursive
+```
