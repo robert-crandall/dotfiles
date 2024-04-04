@@ -1,0 +1,20 @@
+[user]
+	name = Robert Crandall
+	email = {{ .email | quote }}
+[color]
+	ui = always
+[push]
+	default = current
+	autoSetupRemote = true
+[core]
+	excludesfile = ~/.gitignore_global
+[init]
+	defaultBranch = main
+[github]
+	user = robert-crandall
+[remote]
+	pushDefault = origin
+[pull]
+	rebase = true
+[rebase]
+	autostash = true
