@@ -87,7 +87,6 @@
 
 
     },
-    "window.titleBarStyle": "native",
     "ruby.locate": {
 
     },
@@ -178,7 +177,6 @@
       "eamodio.gitlens",
       "chrislajoie.vscode-modelines"
     ],
-    "window.nativeTabs": true,
     "task.autoDetect": "off",
     "gopls": {
       "formatting.gofumpt": true
