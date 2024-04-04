@@ -1,0 +1,10 @@
+#!/bin/sh
+# Run in codespaces after starting
+echo "==> Running codespaces post-start script"
+
+# Use bin versions of tools
+sudo ln -s /workspaces/github/bin/rubocop /usr/local/bin/rubocop
+sudo ln -s /workspaces/github/bin/srb /usr/local/bin/srb
+sudo ln -s /workspaces/github/bin/solargraph /usr/local/bin/solargraph
+sudo ln -s /workspaces/github/bin/safe-ruby /usr/local/bin/ruby
+
