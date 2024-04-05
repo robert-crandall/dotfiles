@@ -100,22 +100,7 @@
   "dotfiles.repository": "robert-crandall/dotfiles",
   "dotfiles.installCommand": "~/dotfiles/script/bootstrap",
   "editor.bracketPairColorization.enabled": true,
-  "dev.containers.defaultExtensions": [
-    "EditorConfig.EditorConfig",
-    "GitHub.copilot-nightly",
-    "eamodio.gitlens",
-    "chrislajoie.vscode-modelines"
-  ],
   "github.codespaces.createCodespaceInNewWindow": true,
-  "github.codespaces.defaultExtensions": [
-    "GitHub.codespaces",
-    "EditorConfig.EditorConfig",
-    "GitHub.copilot-nightly",
-    "eamodio.gitlens",
-    "chrislajoie.vscode-modelines"
-  ],
-  "task.autoDetect": "off",
-
   "terminal.integrated.scrollback": 2000,
   "terminal.external.osxExec": "iTerm.app",
   "terminal.integrated.gpuAcceleration": "off", // Disable GPU acceleration as it truncates icons - https://github.com/xtermjs/xterm.js/issues/3342
