@@ -1,0 +1,136 @@
+// Place your settings in this file to overwrite the default settings
+{
+  // VS Code editor
+  "editor.renderWhitespace": "boundary",
+  "editor.fontFamily": "'JetBrains Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace",
+  "editor.fontSize": 14,
+  "editor.tabSize": 2,
+  "editor.rulers": [
+    { "column": 120, "color": "#4444445e" },
+  ],
+  "editor.minimap.enabled": false,
+  "editor.cursorWidth": 3,
+  "editor.scrollBeyondLastLine": false,
+  "editor.fontLigatures": true,
+  "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": false,
+  "workbench.sideBar.location": "left",
+  "workbench.statusBar.visible": true,
+  "workbench.list.horizontalScrolling": true,
+  "workbench.colorCustomizations": {
+      "editorIndentGuide.activeBackground1": "#999",
+      "terminal.ansiYellow":"#e5a52f",
+      "terminal.ansiBlue":"#359bef",
+  },
+  "git.countBadge": "tracked",
+  "window.newWindowDimensions": "inherit",
+  "window.clickThroughInactive": false,
+  "terminal.integrated.copyOnSelection": true,
+  "workbench.startupEditor": "newUntitledFile",
+  "explorer.openEditors.visible": 1,
+  "git.showPushSuccessNotification": true,
+  "git.confirmSync": false,
+  "diffEditor.renderSideBySide": true,
+  "explorer.confirmDragAndDrop": false,
+  "shellcheck.customArgs": ["-x"],
+  "shellcheck.useWorkspaceRootAsCwd": true,
+  "markdown.previewFrontMatter": "show",
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  },
+  "ruby.codeCompletion": "rcodetools",
+  "editor.renderControlCharacters": true,
+  "workbench.colorTheme": "One Dark Pro",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "ruby.locate": {
+
+  },
+  "typescript.tsc.autoDetect": "off",
+  "grunt.autoDetect": "off",
+  "gulp.autoDetect": "off",
+  "jake.autoDetect": "off",
+  "npm.autoDetect": "off",
+  "[ruby]": {
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": "misogi.ruby-rubocop"
+  },
+  "ruby.format": "rubyfmt",
+  "ruby.useLanguageServer": true,
+  "ruby.intellisense": "rubyLocate",
+  "[gemfile]": {
+    "editor.defaultFormatter": "misogi.ruby-rubocop"
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/*.olean": true
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "python.showStartPage": false,
+  "python.formatting.provider": "black",
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestPath": "/Users/robert-crandall/.asdf/shims/pytest",
+  "python.formatting.blackPath": "/Users/robert-crandall/.asdf/shims/black",
+  "git.ignoreSubmodules": true,
+  "remote.SSH.connectTimeout": 1200,
+  "extensions.ignoreRecommendations": true, // Stop recommending extensions.
+  "keyboard.touchbar.enabled": false,
+  "workbench.enableExperiments": false,
+  "update.showReleaseNotes": false,
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter-notebook"
+  },
+  "redhat.telemetry.enabled": false,
+  "git.pruneOnFetch": true,
+  "scm.repositories.visible": 0,
+  "git.detectSubmodules": false,
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "editor.inlineSuggest.enabled": true,
+  "terminal.integrated.tabs.focusMode": "singleClick",
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": false,
+    "plaintext": true,
+    "markdown": false
+  },
+  "dotfiles.repository": "robert-crandall/dotfiles",
+  "dotfiles.installCommand": "~/dotfiles/script/bootstrap",
+  "editor.bracketPairColorization.enabled": true,
+  "dev.containers.defaultExtensions": [
+    "EditorConfig.EditorConfig",
+    "GitHub.copilot-nightly",
+    "eamodio.gitlens",
+    "chrislajoie.vscode-modelines"
+  ],
+  "github.codespaces.createCodespaceInNewWindow": true,
+  "github.codespaces.defaultExtensions": [
+    "GitHub.codespaces",
+    "EditorConfig.EditorConfig",
+    "GitHub.copilot-nightly",
+    "eamodio.gitlens",
+    "chrislajoie.vscode-modelines"
+  ],
+  "task.autoDetect": "off",
+
+  "terminal.integrated.scrollback": 2000,
+  "terminal.external.osxExec": "iTerm.app",
+  "terminal.integrated.gpuAcceleration": "off", // Disable GPU acceleration as it truncates icons - https://github.com/xtermjs/xterm.js/issues/3342
+  "terminal.integrated.shellIntegration.enabled": false,
+  "git.autofetch": true,
+  "editor.unicodeHighlight.includeStrings": false,
+  "workbench.iconTheme": "file-icons",
+  "git.branchPrefix": "robert-crandall/",
+  "git.autoRepositoryDetection": "openEditors",
+  "svg.preview.mode": "svg",
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "gitlens.showWelcomeOnInstall": false,
+  "gitlens.showWhatsNewAfterUpgrades": false,
+  "shellcheck.disableVersionCheck": true,
+  "lldb.suppressUpdateNotifications": true,
+}
