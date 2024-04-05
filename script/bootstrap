@@ -1,112 +1,16 @@
-#!/bin/bash
-# GitHub codespaces setup. This file is run automatically on codespaces startup.
-# See https://docs.github.com/en/codespaces/customizing-your-codespace/personalizing-github-codespaces-for-your-account
+#!/usr/bin/env bash
+#
+# This is run on every Codespaces startup. See install_mac for the Mac version.
+set -euo pipefail
 
-exec > >(tee -i $HOME/dotfiles_install.log)
-exec 2>&1
-set -x
+# Use bin versions of tools
+sudo ln -s /workspaces/github/bin/rubocop /usr/local/bin/rubocop
+sudo ln -s /workspaces/github/bin/srb /usr/local/bin/srb
+sudo ln -s /workspaces/github/bin/solargraph /usr/local/bin/solargraph
+sudo ln -s /workspaces/github/bin/safe-ruby /usr/local/bin/ruby
 
-[ $(uname -s) = "Darwin" ] && export MACOS=1
-[ $(uname -s) = "Linux" ] && export LINUX=1
-
-if [ $MACOS ]
-then
-  VSCODE="$HOME/Library/Application Support/Code/User"
-elif [ $LINUX ]
-then
-  VSCODE="$HOME/.config/Code/User"
-fi
-
-function link_mac() {
-  if [[ ! $(pwd) -ef $HOME ]]; then
-    mkdir -p ~/.config/
-
-    ## Git config
-    mkdir -p ~/.config/git/
-    ln -s $(pwd)/git/ignore ~/.config/git/ignore
-    ln -s $(pwd)/git/attributes ~/.config/git/attributes
-
-    rm -f ~/.gitconfig
-    ln -s $(pwd)/git/config ~/.gitconfig
-
-    ## SSH
-    mkdir -p ~/.ssh/sockets/
-    rm -f ~/.ssh/config
-    ln -s $(pwd)/settings/ssh ~/.ssh/config
-
-    # Fixup VSCode settings path
-    mkdir -p "$VSCODE"
-    rm -f "$VSCODE/settings.json"
-    ln -s $(pwd)/vscode/settings.jsonc "$VSCODE/settings.json"
-  fi
-}
-
-function link_codespaces() {
-  if [[ ! $(pwd) -ef $HOME ]]; then
-    sudo ln -s /workspaces/github/bin/rubocop /usr/local/bin/rubocop
-    sudo ln -s /workspaces/github/bin/srb /usr/local/bin/srb
-    sudo ln -s /workspaces/github/bin/solargraph /usr/local/bin/solargraph
-    sudo ln -s /workspaces/github/bin/safe-ruby /usr/local/bin/ruby
-  fi
-}
-
-function link_zsh() {
-  if [[ ! $(pwd) -ef $HOME ]]; then
-    rm -f ~/.zshrc
-    ln -s $(pwd)/settings/zshrc ~/.zshrc
-
-    rm -f ~/.zshenv
-    ln -s $(pwd)/settings/zshenv ~/.zshenv
-
-    mkdir -p ~/.config/
-    rm -rf ~/.config/zsh
-    ln -s $(pwd)/config/zsh ~/.config/
-
-    rm -f ~/.p10k.zsh
-    ln -s $(pwd)/config/zsh/p10k.zsh ~/.p10k.zsh
-  fi
-}
-
-function link_fish() {
-  if [[ ! $(pwd) -ef $HOME ]]; then
-    rm -rf ~/.config/fish
-    ln -s $(pwd)/config/fish ~/.config/
-
-    rm -f ~/.config/starship.toml
-    ln -s $(pwd)/config/starship.toml ~/.config/starship.toml
-  fi
-}
-
-function install_starship() {
-  if ! which starship > /dev/null
-  then
-    if [ $MACOS ]
-    then
-      brew install --cask finicky
-      curl -fsSL https://starship.rs/install.sh | sh -s -- -y
-    elif [ $LINUX ]
-    then
-      curl -sL https://starship.rs/install.sh | sh -s -- -y
-    fi
-  fi
-}
-
-if [ $MACOS ]
-then
-  echo '🔗 Linking Mac files.'
-  echo `date +"%Y-%m-%d %T"`
-  install_starship
-  link_mac
-  link_fish
-elif [ $LINUX ]
-then
-  install_starship
-  link_fish
-fi
-
-if [ $CODESPACES ]
-then
-  echo '🔗 Linking Codespaces files.'
-  echo `date +"%Y-%m-%d %T"`
-  link_codespaces
+if ! chezmoi="$(command -v chezmoi)"; then
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply robert-crandall # TODO - remove
+  # One-shot means this will remove chezmoi after installation
+  # sh -c "$(curl -fsLS get.chezmoi.io)" -- init --one-shot robert-crandall
 fi
