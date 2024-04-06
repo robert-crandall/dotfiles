@@ -14,10 +14,10 @@ export -UT INFOPATH infopath  # -T creates a "tied" pair; see below.
 # for $HOME in each $path entry.
 path=(
     /home/linuxbrew/.linuxbrew/bin(N)   # (N): null if file doesn't exist
-    $path
-    ~/.local/bin
     /opt/homebrew/bin(N)
     /opt/homebrew/sbin(N)
+    $path
+    ~/.local/bin
 )
 
 # Add your functions to your $fpath, so you can autoload them.
