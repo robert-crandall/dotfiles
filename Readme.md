@@ -9,6 +9,7 @@ My installation command for Mac and Codespaces
 ## Chezmoi
 
 ```
+chezmoi init --source ~/repos/dotfiles # Mac only
 chezmoi add ~/.zshenv --recursive
 ```
 Test chezmoi
