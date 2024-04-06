@@ -9,19 +9,20 @@ ZNAP_PATH="$HOME/.zsh_plugins/znap"
 # Source Znap at the start of your .zshrc file.
 source "$ZNAP_PATH"/znap.zsh
 
+# `znap source` starts plugins.
+# Make sure zsh autosuggestions are loaded before anything using keybindings
+ZSH_AUTOSUGGEST_STRATEGY=( history )
+znap source zsh-users/zsh-autosuggestions
+ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets )
+znap source zsh-users/zsh-syntax-highlighting
+znap source marlonrichert/zsh-autocomplete
+
 # `znap prompt` makes your prompt visible in just 15-40ms!
 #  znap prompt sindresorhus/pure
 
 # Use starship prompt
 znap eval starship 'starship init zsh --print-full-init'
 znap prompt
-
-# `znap source` starts plugins.
-znap source marlonrichert/zsh-autocomplete
-ZSH_AUTOSUGGEST_STRATEGY=( history )
-znap source zsh-users/zsh-autosuggestions
-ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets )
-znap source zsh-users/zsh-syntax-highlighting
 
 ##
 # Cache the output of slow commands with `znap eval`.
@@ -38,3 +39,6 @@ done
 for file in ~/.zsh/functions/*.zsh; do
   source "$file"
 done
+
+setopt HIST_IGNORE_SPACE # ignore commands starting with a space
+setopt HIST_IGNORE_ALL_DUPS # remove duplicates in history
