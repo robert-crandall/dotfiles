@@ -25,6 +25,16 @@ znap source zsh-users/zsh-syntax-highlighting
 
 ##
 # Cache the output of slow commands with `znap eval`.
-#
+# Colorize prompt
 znap source marlonrichert/zcolors
 znap eval zcolors "zcolors ${(q)LS_COLORS}"
+
+# Load custom zsh files
+for file in ~/.zsh/*.zsh; do
+  source "$file"
+done
+
+# load the zsh function files
+for file in ~/.zsh/functions/*.zsh; do
+  source "$file"
+done

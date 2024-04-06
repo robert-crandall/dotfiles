@@ -1,30 +1,20 @@
-alias zshreload='source ~/.zshrc'             # reload ZSH
 
 # Stats
-alias meminfo='free -m -l -t'
-alias psmem='ps auxf | sort -nr -k 4'
-alias psmem10='ps auxf | sort -nr -k 4 | head -10'
-alias pscpu='ps auxf | sort -nr -k 3'
-alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
-alias cpuinfo='lscpu'
 alias ping='ping -c 5'
-alias speed='speedtest-cli --single'
 alias ipe='curl ipinfo.io/ip'
-alias ports='netstat -tulanp'
+alias reload='exec zsh'
 
 # Program overrides and shortcuts
 alias df='df -H'
 alias du='du -ch'
+alias ls='ls -alG'
 
 # files
 alias grep='grep --color=auto'
 alias untar='tar -zxvf '
 alias wget='wget -c '
 
-alias getpass="openssl rand -base64 28"
-alias sha='shasum -a 256 '
-
-# confirmation #
+# confirmation
 alias rm='rm -i'
 alias mv='mv -i'
 alias cp='cp -i'
