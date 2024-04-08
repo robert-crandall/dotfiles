@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # Custom aliases
 alias aliases='cat ~/.config/zsh/rc.d/11-ghaliases.zsh'
 alias ghaliases='cat ~/.config/zsh/rc.d/11-ghaliases.zsh'
