@@ -12,4 +12,5 @@ My installation command for Mac and Codespaces
 ``` zsh
 chezmoi init --source ~/repos/dotfiles # Mac only
 chezmoi add ~/.zshenv --recursive
+chezmoi add ~/.config/fish --recursive
 ```
