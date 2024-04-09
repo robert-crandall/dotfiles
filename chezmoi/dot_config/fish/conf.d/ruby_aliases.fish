@@ -1,5 +1,5 @@
 # ruby
-alias aliases="cat ~/.config/fish/alias.fish"
+alias aliases="cat ~/.config/fish/conf.d/ruby_aliases.fish"
 alias ghserver="script/dx/server-start"
 alias ghlogs="script/dx/server-logs"
 alias ghenterprise="bin/setup --enterprise"
@@ -17,16 +17,6 @@ alias ghshell="ssh -A gh-shell"
 alias fix_sorbet_reset="bin/rails db:reset && bin/tapioca dsl"
 alias fix_sorbet="bin/rails db:migrate db:test:soft_reset && bin/tapioca dsl"
 alias fix_serviceowners="bin/generate-service-files.rb"
-
-# papercuts
-alias which "type -a"
-
-abbr rm "rm -i"
-abbr cp "cp -i"
-abbr mv "mv -i"
-abbr mkdir "mkdir -p"
-abbr h "history"
-abbr ls "ls -laG"
 
 # misc
 alias reload='exec fish'
