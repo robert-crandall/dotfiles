@@ -2,4 +2,4 @@
 set fish_greeting
 
 # Init Starship
-starship init fish | source
+# starship init fish | source

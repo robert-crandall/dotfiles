@@ -22,7 +22,7 @@
   },
   "terminal.integrated.defaultProfile.linux": "fish",
   "terminal.integrated.defaultProfile.osx": "fish",
-  "terminal.integrated.fontFamily": "JetBrains Mono",
+  "terminal.integrated.fontFamily": "MesloLGS NF",
   "terminal.integrated.fontSize": 13,
   "oneDarkPro.bold": true,
   "explorer.confirmDelete": false,
