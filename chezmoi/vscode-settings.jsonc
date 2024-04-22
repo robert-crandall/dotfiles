@@ -1,27 +1,17 @@
 {
   // Editor settings
   "editor.renderWhitespace": "boundary",
-  "editor.fontFamily": "'JetBrains Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace",
-  "editor.fontSize": 13,
+  "editor.fontFamily": "'Cascadia Code', Consolas, Menlo, 'JetBrains Mono', monospace",
+  "editor.fontSize": 14,
   // "editor.lineHeight": 1.5,
   "editor.fontLigatures": true,
   "editor.tabSize": 2,
   "files.autoSave": "onFocusChange",
-  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
   "editor.wordWrap": "on",
   "diffEditor.ignoreTrimWhitespace": false,
-  "terminal.integrated.profiles.linux": {
-    "fish": {
-        "path": "fish"
-    }
-  },
-  "terminal.integrated.profiles.osx": {
-      "fish": {
-          "path": "fish"
-      }
-  },
-  "terminal.integrated.defaultProfile.linux": "fish",
-  "terminal.integrated.defaultProfile.osx": "fish",
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.defaultProfile.osx": "zsh",
   "terminal.integrated.fontFamily": "MesloLGS NF",
   "terminal.integrated.fontSize": 13,
   "oneDarkPro.bold": true,
