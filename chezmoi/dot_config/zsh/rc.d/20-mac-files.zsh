@@ -9,3 +9,6 @@ if command -v brew >/dev/null 2>&1 && brew --prefix asdf >/dev/null 2>&1; then
 else
   echo "brew or asdf not found"
 fi
+
+export LDFLAGS="-L/opt/homebrew/opt/libpq/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/libpq/include"
