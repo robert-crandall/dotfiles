@@ -10,8 +10,8 @@
   "terminal.integrated.enableMultiLinePasteWarning": "never",
   "editor.wordWrap": "on",
   "diffEditor.ignoreTrimWhitespace": false,
-  "terminal.integrated.defaultProfile.linux": "zsh",
-  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.defaultProfile.linux": "fish",
+  "terminal.integrated.defaultProfile.osx": "fish",
   "terminal.integrated.fontFamily": "MesloLGS NF",
   "terminal.integrated.fontSize": 13,
   "oneDarkPro.bold": true,
@@ -21,6 +21,7 @@
   // Git
   "git.promptToSaveFilesBeforeCommit": "always",
   "git.confirmSync": false,
+  "scm.showHistoryGraph": false,
 
   // GitHub
   "github.copilot.enable": {
@@ -49,4 +50,12 @@
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "workbench.colorTheme": "One Dark Pro Darker",
+  "github.copilot.editor.enableAutoCompletions": true,
+
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true,
+    "/volume3/home-ops/Library/**": true
+  }
 }
