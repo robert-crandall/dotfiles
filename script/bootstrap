@@ -4,7 +4,6 @@
 set -euo pipefail
 
 if ! chezmoi="$(command -v chezmoi)"; then
-  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply robert-crandall # TODO - remove
-  # One-shot means this will remove chezmoi after installation
-  # sh -c "$(curl -fsLS get.chezmoi.io)" -- init --one-shot robert-crandall
+  # can use -- init --one-shot instead of --apply to auto remove chezmoi
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply robert-crandall 
 fi
