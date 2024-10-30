@@ -14,9 +14,12 @@ alias routes="bin/rails routes > routes.txt"
 alias troubleshoot="script/dx/heal --everything"
 alias troubleshoot_live="script/server | script/dx/overmind-help --live" # live troubleshooting
 alias ghshell="ssh -A gh-shell"
-alias fix_sorbet_reset="bin/rails db:reset && bin/tapioca dsl"
-alias fix_sorbet="bin/rails db:migrate db:test:soft_reset && bin/tapioca dsl"
-alias fix_serviceowners="bin/generate-service-files.rb"
+alias serviceowners_fix="bin/generate-service-files.rb"
+
+alias sorbet_reset="bin/rails db:reset && bin/tapioca dsl"
+alias sorbet_reset_long="bin/rails db:migrate db:test:soft_reset && bin/tapioca dsl"
+alias sorbet_run="SRB_SKIP_GEM_RBIS=1 bin/srb tc"
+alias sorbet_run_correct="SRB_SKIP_GEM_RBIS=1 bin/srb tc -a"
 
 # misc
 alias reload='exec fish'
