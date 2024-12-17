@@ -11,7 +11,16 @@ function test_pr_features
 end
 
 function test_pr_all
-  run_on_modified_files "bin/rails test" "TEST_WITH_ALL_EMUS=1 bin/rails test" "TEST_ALL_FEATURES=1 bin/rails test" "TEST_WITH_ALL_EMUS=1 TEST_ALL_FEATURES=1 bin/rails test"
+  run_on_modified_files "bin/rails test" "TEST_WITH_ALL_EMUS=1 bin/rails test" "TEST_ALL_FEATURES=1 bin/rails test" "TEST_WITH_ALL_EMUS=1 TEST_ALL_FEATURES=1 bin/rails test" "MULTI_TENANT_ENTERPRISE=1 bin/rails test"
+end
+
+function all_tests
+  set file $argv[1]
+  bin/rails test $file
+  TEST_WITH_ALL_EMUS=1 bin/rails test $file
+  TEST_ALL_FEATURES=1 bin/rails test $file
+  TEST_WITH_ALL_EMUS=1 TEST_ALL_FEATURES=1 bin/rails test $file
+  MULTI_TENANT_ENTERPRISE=1 bin/rails test $file
 end
 
 function run_on_modified_files

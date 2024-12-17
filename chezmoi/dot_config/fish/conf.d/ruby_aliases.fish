@@ -7,6 +7,8 @@ alias ghstop="script/dx/server-stop"
 alias ghtest="bin/rails test"
 alias emutest="env TEST_WITH_ALL_EMUS=1 bin/rails test"
 alias ftest="env TEST_ALL_FEATURES=1 bin/rails test"
+alias mttest="env MULTI_TENANT_ENTERPRISE=1 bin/rails test"
+# all_tests will run all the above tests
 alias citest="bin/run-failed-ci"
 alias bootstrap="script/bootstrap"
 alias reset_db="script/setup --force"
