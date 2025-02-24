@@ -32,7 +32,7 @@ function link_mac() {
     ## SSH
     mkdir -p ~/.ssh/sockets/
     rm -f ~/.ssh/config
-    ln -s $(pwd)/settings/ssh ~/.ssh/config
+    ln -s $(pwd)/ssh ~/.ssh/config
 
     # Fixup VSCode settings path
     mkdir -p "$VSCODE"
