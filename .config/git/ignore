@@ -28,8 +28,3 @@ vendor/*/vendor/ruby/
 
 # Tmp disable globally
 coverage/
-
-# SQL files
-*.sql
-*.sql.gz
-*.sqlite
