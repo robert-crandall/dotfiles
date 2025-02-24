@@ -4,11 +4,9 @@
   # Don't prompt for commit messages for merge commits.
   mergeoptions = --no-edit
 
-{{- if (eq .chezmoi.os "darwin") }}
 [user]
   name = Robert Crandall
-  email = {{ .email | quote }}
-{{- end }}
+  email = robert.crandall@gmail.com
 
 [github]
   user = robert-crandall
@@ -40,7 +38,7 @@
   # We use the for loop because we can't pipe to `xargs -r git branch -D` as xargs on macos doesn't accept `-r` to ignore empty cases
   cleanup = "!git switch $(git db) && git pull --rebase --prune && for b in $(git branch --list --format '%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)'); do git branch -D $b; done"
   undo = "!git reset --hard && git clean -fd"
-  
+
 [gist]
   browse = true  # Open GitHub Gist in browser after submission.
 
@@ -73,11 +71,7 @@
   restrictRemote = false
 
 [merge]
-  {{- $v := output "git" "--version" | trim | split " " }}{{ if semverCompare ">2.35.0" $v._2 }}
   conflictstyle = zdiff3  # Requires git 2.35 or later which isn't available on Codespaces by default
-  {{- else }}
-  conflictstyle = diff3
-  {{- end }}
 
 [feature]
   manyFiles = true
@@ -87,9 +81,7 @@
 
 [pull]
   rebase = false
-  {{- $v := output "git" "--version" | trim | split " " }}{{ if semverCompare ">2.33.0" $v._2 }}
-  twohead = ort  # Requires git 2.33 or later which isn't available on Codespaces by default
-  {{- end }}
+  twohead = ort
 
 [advice]
   detachedHead = false
@@ -99,9 +91,3 @@
 
 [remote]
   pushDefault = origin
-
-{{- if .codespaces }}
-# Always use https on Codespaces
-[url "https://github.com/"]
-  insteadOf = git@github.com:
-{{- end }}
