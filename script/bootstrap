@@ -72,11 +72,17 @@ function link_zsh() {
 
 function link_fish() {
   if [[ ! $(pwd) -ef $HOME ]]; then
-    rm -rf ~/.config/fish
-    ln -s $(pwd)/config/fish ~/.config/
+    # Create .config if it doesn't exist
+    mkdir -p ~/.config
 
-    rm -f ~/.config/starship.toml
-    ln -s $(pwd)/config/starship.toml ~/.config/starship.toml
+    # Backup any existing fish config if it exists
+    if [ -d ~/.config/fish ]; then
+      mv ~/.config/fish ~/.config/fish.backup
+    fi
+
+    # Create the symlink
+    ln -sf $(pwd)/config/fish ~/.config/fish
+    ln -sf $(pwd)/config/starship.toml ~/.config/starship.toml
   fi
 }
 
