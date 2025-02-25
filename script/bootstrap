@@ -29,11 +29,6 @@ function link_mac() {
     rm -f ~/.gitconfig
     ln -s $(pwd)/git/config ~/.gitconfig
 
-    ## SSH
-    mkdir -p ~/.ssh/sockets/
-    rm -f ~/.ssh/config
-    ln -s $(pwd)/ssh ~/.ssh/config
-
     # Fixup VSCode settings path
     mkdir -p "$VSCODE"
     rm -f "$VSCODE/settings.json"
@@ -41,6 +36,14 @@ function link_mac() {
 
     # Ruby
     sudo ln -s /Users/robert-crandall/.asdf/shims/rubocop /usr/local/bin/rubocop
+  fi
+}
+
+function link_ssh() {
+  if [[ ! $(pwd) -ef $HOME ]]; then
+    mkdir -p ~/.ssh/sockets/
+    rm -f ~/.ssh/config
+    ln -s $(pwd)/ssh ~/.ssh/config
   fi
 }
 
@@ -115,14 +118,14 @@ if [ $MACOS ]
 then
   echo '🔗 Linking Mac files.'
   echo `date +"%Y-%m-%d %T"`
-  install_starship
   link_mac
   link_fish
+  link_ssh
   authorized_keys
 elif [ $LINUX ]
 then
-  install_starship
   link_fish
+  link_ssh
 fi
 
 if [ $CODESPACES ]
