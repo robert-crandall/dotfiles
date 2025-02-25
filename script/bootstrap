@@ -4,6 +4,7 @@
 set -euo pipefail
 
 if ! chezmoi="$(command -v chezmoi)"; then
-  # can use -- init --one-shot instead of --apply to auto remove chezmoi
+  # Apply local directory with 
+  #   sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "$PWD"
   sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply robert-crandall 
 fi
