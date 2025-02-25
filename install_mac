@@ -72,7 +72,7 @@ function link_dotfiles() {
     symlink_directory .config/zsh
     symlink_file .zshrc
     symlink_file .zshenv
-    symlink_file .pk10.zsh
+    symlink_file .p10k.zsh
 
     symlink_file .config/starship.toml
 
