@@ -1,0 +1,74 @@
+{
+  // Editor settings
+  "editor.renderWhitespace": "boundary",
+  "editor.fontFamily": "'Cascadia Code', Consolas, Menlo, 'JetBrains Mono', monospace",
+  "editor.fontSize": 14,
+  // "editor.lineHeight": 1.5,
+  "editor.fontLigatures": true,
+  "editor.tabSize": 2,
+  "files.autoSave": "onFocusChange",
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "editor.wordWrap": "on",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "terminal.integrated.defaultProfile.linux": "fish",
+  "terminal.integrated.defaultProfile.osx": "fish",
+  "terminal.integrated.fontFamily": "MesloLGS NF",
+  "terminal.integrated.fontSize": 13,
+  "oneDarkPro.bold": true,
+  "explorer.confirmDelete": false,
+  "editor.scrollBeyondLastLine": false,
+  "editor.codeActionsOnSave": {
+
+    "source.fixAll.eslint": "never"
+  },
+  "github.copilot.editor.enableCodeActions": false,
+
+  // Git
+  "git.promptToSaveFilesBeforeCommit": "always",
+  "git.confirmSync": false,
+  "scm.showHistoryGraph": false,
+  "git.enableCommitSigning": false,
+
+  // GitHub
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": false,
+    "plaintext": false,
+    "markdown": false,
+    "erb": true,
+    "ruby": true
+  },
+
+  // Extensions
+  "sorbet.enabled": true,
+  "gitlens.blame.ignoreWhitespace": true,
+  "gitlens.showWelcomeOnInstall": false,
+  "gitlens.showWhatsNewAfterUpgrades": false,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "redhat.telemetry.enabled": false,
+  "githubPullRequests.pullBranch": "never",
+  "workbench.startupEditor": "none",
+  "ruby.rubocop.onSave": true,
+  "ruby.rubocop.executePath": "/usr/local/bin/",
+  "git.autofetch": true,
+  "git.branchPrefix": "robert-crandall/",
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "workbench.colorTheme": "One Dark Pro Darker",
+  "github.copilot.editor.enableAutoCompletions": true,
+
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true,
+    "/volume3/home-ops/Library/**": true
+  },
+  "betterGitLineBlame.showStatusBarItem": false,
+  "git-blame.gitWebUrl": "https://github.com/github/github/commit/$ID",
+  "chat.editing.alwaysSaveWithGeneratedChanges": true,
+  "remote.autoForwardPortsSource": "hybrid",
+  "remoteHub.commitDirectlyWarning": "off",
+  "editor.indentSize": "tabSize",
+}

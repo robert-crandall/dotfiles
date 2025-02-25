@@ -1,0 +1,279 @@
+# vim: set ft=zsh
+# shellcheck disable=SC1000-SC9999
+#
+# Personal Zsh configuration file. It is strongly recommended to keep all
+# shell customization and configuration (including exported environment
+# variables such as PATH) in this file or in files source by it.
+#
+# Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
+# Profile loading the shell using `ZPROF=1 zsh -i`
+[ -z "$ZPROF" ] || zmodload zsh/zprof
+
+#### ---:[ Z4H config ]:--- ###
+
+zstyle ':z4h:'                  chsh              'no'            # Disable chsh check
+zstyle ':z4h:'                  auto-update       'no'            # Periodic auto-update on Zsh startup: 'ask' or 'no'. You can manually run `z4h update` to update everything.
+zstyle ':z4h:'                  prompt-at-bottom  'no'            # Move prompt to the bottom when zsh starts and on Ctrl+L - needs tmux
+zstyle ':z4h:bindkey'           keyboard          'mac'           # Keyboard type: 'mac' or 'pc'.
+zstyle ':z4h:autosuggestions'   forward-char      'accept'        # Right-arrow key accepts one character ('partial-accept') from command autosuggestions or the whole thing ('accept')?
+zstyle ':z4h:fzf-complete'      recurse-dirs      'no'            # Recursively traverse directories when TAB-completing files.
+zstyle ':z4h:direnv'            enable            'no'            # Disable direnv to automatically source .envrc files.
+zstyle ':z4h:ssh:*'             enable            'no'            # The default value if none of the overrides above match the hostname.
+zstyle ':z4h:'                  start-tmux        'no'            # Don't download and start tmux-related stuff as I really don't seem to gain much benefit from this.
+zstyle ':z4h:fzf-history'       fzf-flags         --no-preview    # Disable history preview and limit height
+#zstyle ':z4h:*'                 fzf-command       fzf             # Use fzf in PATH
+
+# Disable on codespaces as they are never used
+if [ $CODESPACES ]; then
+  zstyle ':z4h:homebrew-command-not-found'      channel           'none'
+  zstyle ':z4h:systemd'                         channel           'none'
+fi
+
+# Clone additional Git repositories from GitHub.
+#
+# This doesn't do anything apart from cloning the repository and keeping it
+# up-to-date. Cloned files can be used after `z4h init`. This is just an
+# example. If you don't plan to use Oh My Zsh, delete this line.
+# z4h install ohmyzsh/ohmyzsh || return
+
+# Install or update core components (fzf, zsh-autosuggestions, etc.) and
+# initialize Zsh. After this point console I/O is unavailable until Zsh
+# is fully initialized. Everything that requires user interaction or can
+# perform network I/O must be done above. Everything else is best done below.
+z4h init || return
+
+# Ensure path arrays do not contain duplicates.
+typeset -gU fpath path
+
+# Extend PATH.
+path=(
+  ~/bin
+  $path
+)
+
+# Extend function path
+fpath=(
+  $ZDOTDIR/functions
+  $ZDOTDIR/completions
+  $fpath
+)
+
+#### ---:[ Export Variables ]:--- ###
+export BAT_THEME="TwoDark"
+export GPG_TTY=$TTY
+#export LANG='en_GB.UTF-8'         # Speak British to me, might need to run `sudo locale-gen en_GB.utf8` first
+#export LC_COLLATE='C'             # Use C collation for sorting
+export HOMEBREW_INSTALL_CLEANUP=1 # Always clean up when installing Homebrew packages
+export HOMEBREW_BOOTSNAP=1        # Speed up homebrew
+export HOMEBREW_NO_ANALYTICS=1    # Don't send analytics
+export EDITOR='vim'
+export VISUAL='vim'
+export PAGER='less'
+export MANWIDTH=80
+export LESS='-FgiMRwXz-2'
+export ICLOUD_DRIVE="$HOME/Library/Mobile Documents/com~apple~CloudDocs" # Conveniently locate cloud drive :-P
+export OBSIDIAN="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents"
+# Set the Less input preprocessor.
+# Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
+if (( $#commands[(i)lesspipe(|.sh)] )); then
+  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+  export LESS_ADVANCED_PREPROCESSOR=1
+fi
+#export LSCOLORS=Gxfxcxdxbxegedabagacad
+#export LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+export GREP_COLOR=${GREP_COLOR:-'37;45'}            # BSD.
+export GREP_COLORS=${GREP_COLORS:-"mt=$GREP_COLOR"} # GNU.
+# LESS_TERMCAP_* as now set in the man() function
+
+# Store stuff in ~/.config and ~/.cache when we can.
+# https://wiki.archlinux.org/title/XDG_Base_Directory
+# https://www.reddit.com/r/zsh/comments/fvtr19/no_more_dotfile_clutter_in_my_home/
+[ -z "$XDG_CONFIG_HOME" ] && export XDG_CONFIG_HOME="${HOME}/.config"
+[ -z "$XDG_CACHE_HOME" ] && export XDG_CACHE_HOME="${HOME}/.cache"
+[ -z "$XDG_DATA_HOME" ] && export XDG_DATA_HOME="${HOME}/.local/share"
+[ -z "$XDG_RUNTIME_DIR" ] && export XDG_RUNTIME_DIR="${HOME}/.tmp"
+[ -z "$XDG_STATE_HOME" ] && export XDG_STATE_HOME="${HOME}/.local/state"
+
+## create directories if they don't already exist
+for _dir in $XDG_CONFIG_HOME $XDG_CACHE_HOME $XDG_DATA_HOME $XDG_RUNTIME_DIR $XDG_STATE_HOME; do
+  [[ -d "$_dir" ]] || mkdir -p "$_dir"
+done
+unset _dir
+
+export ASDF_CONFIG_FILE=$XDG_CONFIG_HOME/asdf/asdfrc
+export ASDF_DATA_DIR=$XDG_DATA_HOME/asdf
+# export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME=$XDG_CONFIG_HOME/asdf/tool-versions
+export ASDF_DEFAULT_TOOL_VERSIONS_FILENAME=.config/asdf/tool-versions # ASDF has started prefixing with $HOME for some reason.
+export ASDF_GEM_DEFAULT_PACKAGES_FILE=$XDG_CONFIG_HOME/asdf/default-gems
+export AWS_SHARED_CREDENTIALS_FILE=$XDG_CONFIG_HOME/aws/credentials
+export AWS_CONFIG_FILE=$XDG_CONFIG_HOME/aws/config
+export AZURE_CONFIG_DIR=$XDG_DATA_HOME/azure
+export BUNDLE_USER_CACHE=$XDG_CACHE_HOME/bundle
+export BUNDLE_USER_HOME=$XDG_CONFIG_HOME/bundle
+export BUNDLE_USER_PLUGIN=$XDG_DATA_HOME/bundle
+export DOCKER_CONFIG=$XDG_CONFIG_HOME/docker
+# export GEM_HOME=$XDG_DATA_HOME/gem            # This confuses ASDF
+# export GEM_SPEC_CACHE=$XDG_CACHE_HOME/gem
+export GIT_MERGE_AUTOEDIT=no
+export GOBIN=~/.local/gobin                     # Go binaries ('go install').
+export GOCACHE=/tmp/go/build                    # Go build cache in tmp/memory
+export GOPATH=$XDG_CACHE_HOME/go                # GOPATH mostly stores cache stuff these days thanks to modules
+export GOTMPDIR=/tmp/go/tmp                     # tmp files during compile
+if [ -n "$CODESPACES" ]; then
+  export GOPROXY=https://goproxy.githubapp.com/mod,https://proxy.golang.org/,direct
+  export GOPRIVATE=
+  export GONOPROXY=
+  export GONOSUMDB='github.com/github/*'
+fi
+export HOMEBREW_BUNDLE_FILE=$XDG_CONFIG_HOME/homebrew/Brewfile
+export IRBRC=$XDG_CONFIG_HOME/irb/irbrc
+export LESSHISTFILE=$XDG_CONFIG_HOME/lesshistory
+export MIX_XDG=1
+export MOST_INITFILE=$XDG_CONFIG_HOME/most/mostrc
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+export PRYRC=$XDG_CONFIG_HOME/pry/pryrc         # Unnecessary but being extra safe
+export SOLARGRAPH_CACHE=$XDG_CACHE_HOME/solargraph
+export SQLITE_HISTORY=$XDG_CACHE_HOME/sqlite_history
+# export TERMINFO=$XDG_DATA_HOME/terminfo
+# export TERMINFO_DIRS=$XDG_DATA_HOME/terminfo:/usr/share/terminfo
+
+[[ ! -d "$GOTMPDIR" ]] && mkdir -p "$GOTMPDIR"  # Make sure it exists as Go won't create it.
+path+=($GOBIN)
+
+HISTSIZE=11000                                      # Max. entries to keep in memory
+SAVEHIST=10000                                      # Max. entries to save to file
+HISTORY_IGNORE='([bf]g *|[bf]g|disown|cd ..|cd -)'  # Don't add these to the history file.
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+#### ---:[ Aliases ]:--- ###
+alias path='echo -e ${PATH//:/\\n}'
+# alias rm='nocorrect rm'
+alias l='ls -lh'
+alias ll='ls -lha'
+alias ls-l='ls -lh'
+alias ..='cd ..'
+alias path='echo -e ${PATH//:/\\n}'
+alias fpath='echo -e ${FPATH//:/\\n}'
+alias unzip="unzip -qq"
+alias myprocs="ps aux | grep $USER"
+alias nocmt="grep -v '^$\|^\s*\#'"
+alias vi=vim
+alias curl="noglob curl"              # Don't glob
+alias find='noglob find'              # Allows typing e.g. "find . -name *.zsh" without quotes.
+alias cp='cp -i'                      # Ask for confirmation when overwriting existing files.
+alias mv='mv -i'
+alias codespaces-post-start='sh -c /workspaces/.codespaces/.persistedshare/dotfiles/script/codespaces-post-start'
+
+# Lazy Git aliases
+# alias g='git'
+alias gb='git b'
+alias gbc='git swc'
+alias gc='git commit --verbose'
+alias gco='git checkout'
+alias gcom="git com"
+alias gld='git log --topo-order --stat --patch --full-diff --pretty=format:"${_git_log_medium_format}"'
+alias gls='git log --topo-order --stat --pretty=format:"${_git_log_medium_format}"'
+alias gp='git push -u'
+alias gst='git st'
+alias gsw='git switch'
+alias gup='git up'
+
+if [ -n "$CODESPACES" ]; then
+  alias so="${CODESPACE_VSCODE_FOLDER}/bin/serviceowners"
+  alias sols="${CODESPACE_VSCODE_FOLDER}/bin/serviceowners-ls-files"
+fi
+
+_exists() { (( $+commands[$1] )) }
+
+# _exists hub && {
+#   alias git=hub
+#   alias ci="hub ci-status"
+# }
+_exists bat && alias cat=bat && export BAT_THEME="Monokai Extended"
+_exists eza && alias ls="eza --no-user"
+_exists rg && rg() { $commands[rg] -p "$@" | less; }
+_exists prettyping && alias ping="prettyping --nolegend"
+_exists htop && alias top=htop
+_exists chezmoi && {
+  alias che=chezmoi
+  alias chez=chezmoi
+  alias ch=chezmoi
+  alias cha="chezmoi apply"
+  alias chd="chezmoi cd"
+}
+_exists code-insiders && alias code=code-insiders
+# _exists gh && {
+#   gh-cs="gh cs code -c $(gh cs create -R github/github -b master --devcontainer-path .devcontainer/devcontainer.json -m largePremiumLinux --default-permissions | tail -1) --insiders"
+#   gh-cs-big="gh cs code -c $(gh cs create -R github/github -b master --devcontainer-path .devcontainer/devcontainer.json -m xLargePremiumLinux --default-permissions | tail -1) --insiders"
+# }
+_exists trash && alias rm="trash -F"
+
+if [ -z "$CODESPACES" ]; then
+  # From `source $HOME/.config/op/plugins.sh`
+  export OP_PLUGIN_ALIASES_SOURCED=1
+  export OP_ACCOUNT="my.1password.com"
+  alias gh="op plugin run -- gh"
+  alias brew="op plugin run -- brew"
+fi
+
+unfunction _exists
+
+
+#### ---:[ Shell options ]:--- ###
+# See: http://zsh.sourceforge.net/Doc/Release/Options.html.
+# These are only the ones not set by z4h in z4h.zsh or that I'm overriding.
+setopt glob_dots              # no special treatment for file names with a leading dot
+setopt no_auto_menu           # require an extra TAB press to open the completion menu
+setopt inc_append_history     # Append immediately rather than only at exit
+setopt hist_no_store          # Don't store history or fc commands
+setopt hist_ignore_all_dups   # Remove older event if new event is duplicate.
+setopt combining_chars        # Combine zero-length punctuation characters (accents) with the base character.
+setopt rc_quotes              # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'.
+unsetopt mail_warning         # Don't print a warning message if a mail file has been accessed.
+setopt long_list_jobs         # List jobs in the long format by default.
+setopt auto_resume            # Attempt to resume existing job before creating a new process.
+setopt notify                 # Report status of background jobs immediately.
+unsetopt bg_nice              # Don't run all background jobs at a lower priority.
+unsetopt hup                  # Don't kill jobs on shell exit.
+unsetopt check_jobs           # Don't report on jobs when shell exit.
+unsetopt clobber              # Do not overwrite existing files with > and >>. Use >! and >>! to bypass.
+
+#### ---:[ Keybindings ]:--- ###
+z4h bindkey undo Ctrl+/   Shift+Tab     # undo the last command line change
+z4h bindkey redo Option+/               # redo the last undone command line change
+z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
+z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
+z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
+z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
+
+#### ---:[ Autoload functions ]:--- ###
+autoload -Uz zmv
+autoload -Uz $fpath[0]/*(.:t)           # Load all my functions
+
+autoload -Uz bracketed-paste-url-magic
+zle -N bracketed-paste bracketed-paste-url-magic
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
+# Define functions and completions.
+# Or place the functions in $ZDOTDIR/functions and the completions in $ZDOTDIR/completions.
+function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
+compdef _directories md
+
+z4h source "$HOME/.secrets"
+z4h source /etc/grc.zsh # Colourize all the other things
+z4h source -- ${HOMEBREW_PREFIX:+$HOMEBREW_PREFIX/etc/grc.zsh} # Colourize all the other things
+z4h source -- ${HOMEBREW_PREFIX:+$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh} # Load asdf if it's installed.
+
+# all of our zsh files
+for file in ~/.zsh/*.zsh; do
+  source "$file"
+done
+
+# load the zsh function files
+for file in ~/.zsh/functions/*; do
+  source "$file"
+done
+
+# This must always be last.
+[ -z "$ZPROF" ] || zprof

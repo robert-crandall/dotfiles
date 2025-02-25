@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# This is run on every Codespaces startup. See install_mac for the Mac version.
+set -euo pipefail
+
+if ! chezmoi="$(command -v chezmoi)"; then
+  # can use -- init --one-shot instead of --apply to auto remove chezmoi
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply robert-crandall 
+fi
