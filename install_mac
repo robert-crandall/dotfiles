@@ -21,6 +21,29 @@ then
   VSCODE="$APPDATA/Code/User"
 fi
 
+function symlink_file() {
+  local file_path="$1"
+  local target="$HOME/$file_path"
+  
+  if [ -f "$target" ]; then
+    rm -f "$target"
+  fi
+  
+  ln -s "$(pwd)/$file_path" "$target"
+}
+
+function symlink_directory() {
+  local dir_path="$1"
+  local target="$HOME/$dir_path"
+  local parent_dir=$(dirname "$target")
+  
+  if [ -d "$target" ]; then
+    rm -rf "$target"
+  fi
+  
+  ln -s "$(pwd)/$dir_path" "$parent_dir"
+}
+
 function link_dotfiles() {
   if [[ ! $(pwd) -ef $HOME ]]; then
     echo '🔗 Linking dotfiles'
@@ -28,20 +51,16 @@ function link_dotfiles() {
     mkdir -p ~/.config/
 
     ## Git config
-    rm -rf ~/.gitignore_global
-    rm -rf ~/.gitconfig
-    ln -s $(pwd)/.gitignore_global ~/.gitignore_global
-    ln -s $(pwd)/.gitconfig ~/.gitconfig
+    symlink_file .gitignore_global
+    symlink_file .gitconfig
     touch ~/.gitconfig-macos
 
     if [ $MACOS ]; then
-      rm -rf ~/.gitconfig-macos
-      ln -s $(pwd)/.gitconfig-macos ~/.gitconfig-macos
+      symlink_file .gitconfig-macos
     fi
 
     mkdir -p ~/.ssh/
-    rm -rf ~/.ssh/config
-    ln -s $(pwd)/.ssh/config ~/.ssh/config
+    symlink_directory .ssh/config
 
     if [ $MACOS ]; then
       mkdir -p ~/.ssh/sockets
@@ -49,17 +68,13 @@ function link_dotfiles() {
     fi
 
     ## Shell config
-    rm -rf ~/.config/fish
-    ln -s $(pwd)/.config/fish ~/.config/
+    symlink_directory .config/fish
+    symlink_directory .config/zsh
+    symlink_file .zshrc
+    symlink_file .zshenv
+    symlink_file .pk10.zsh
 
-    rm -rf ~/.config/zsh
-    ln -s $(pwd)/.config/zsh ~/.config/
-
-    rm -rf ~/.zshrc
-    ln -s $(pwd)/.zshrc ~/.zshrc
-
-    rm -f ~/.config/starship.toml
-    ln -s $(pwd)/.config/starship.toml ~/.config/starship.toml
+    symlink_file .config/starship.toml
 
     echo '🔗 DONE Linking dotfiles'
   fi
