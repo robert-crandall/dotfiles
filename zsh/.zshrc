@@ -14,10 +14,6 @@ if [[ `uname` == "Darwin" ]]; then
   source $HOME/.zsh/os/macos.zsh
 fi
 
-alias v="nvim"
-alias vvim="vim $HOME/.config/nvim/init.vim"
-alias svim="source $HOME/.config/nvim/init.vim"
-
 # Only define `cssh` if the `rdm` binary exists
 # https://github.com/BlakeWilliams/remote-development-manager
 if [[ -x "$(command -v rdm)" ]]; then

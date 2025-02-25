@@ -55,5 +55,4 @@ if [[ -n $CODESPACES ]]; then
 else
   # TODO: Add setup for local machine
   zsh zsh/install.zsh
-  zsh nvim/install
 fi

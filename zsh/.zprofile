@@ -13,8 +13,6 @@
 # Editors
 #
 
-export EDITOR='nvim'
-export VISUAL='nvim'
 export PAGER='less'
 export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 export BAT_THEME="GitHub"
@@ -63,4 +61,3 @@ fi
 
 XDG_DATA_HOME=$HOME/.local/share
 XDG_CONFIG_HOME=$HOME/.config
-
