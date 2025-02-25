@@ -56,7 +56,9 @@ function link_dotfiles() {
     touch ~/.gitconfig-macos
 
     if [ $MACOS ]; then
-      symlink_file .gitconfig-macos
+    # Using a seperate symlink because the filename changes here. This is to prevent codespaces from reading this file by default.
+        rm -f ~/.gitconfig-macos
+        ln -s $(pwd)/gitconfig-macos ~/.gitconfig-macos
     fi
 
     mkdir -p ~/.ssh/

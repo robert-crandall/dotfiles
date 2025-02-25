@@ -98,6 +98,10 @@ alias tree='tree -a -I .git'
 # Add flags to existing aliases.
 alias ls="${aliases[ls]:-ls} -A"
 
+unset MOUSEWHEEL_UP
+unset MOUSEWHEEL_DOWN
+bindkey -r '^[[<' '^[[>' '^[[M'  # Remove scroll bindings if they exist
+
 # Source custom files
 for function_file in ~/.config/zsh/functions/*; do
   source $function_file
