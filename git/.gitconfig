@@ -1,6 +1,6 @@
 [user]
-  name = Luan Vieira
-  email = luanzeba@github.com
+  name = Robert Crandall
+  email = robert-crandall@github.com
 [color]
   ui = always
 [push]
@@ -26,10 +26,8 @@
 [merge]
   conflictstyle = diff3
 [github]
-  user = luanzeba
+  user = robert-crandall
 [remote]
   pushDefault = origin
 [pull]
   rebase = true
-[include]
-  path = ~/.gitconfig-macos
