@@ -1,0 +1,158 @@
+#!/bin/bash
+# This file shouldn't be needed to run in Codespaces, because all files are symlinked to the home directory.
+# However, it's useful to have a script that can be run to install the dotfiles on a new machine.
+
+exec > >(tee -i $HOME/dotfiles_install.log)
+exec 2>&1
+set -x
+
+[ $(uname -s) = "Darwin" ] && export MACOS=1 && export UNIX=1
+[ $(uname -s) = "Linux" ] && export LINUX=1 && export UNIX=1
+uname -s | grep -q "_NT-" && export WINDOWS=1
+
+if [ $MACOS ]
+then
+  VSCODE="$HOME/Library/Application Support/Code/User"
+elif [ $LINUX ]
+then
+  VSCODE="$HOME/.config/Code/User"
+elif [ $WINDOWS ]
+then
+  VSCODE="$APPDATA/Code/User"
+fi
+
+function link_dotfiles() {
+  if [[ ! $(pwd) -ef $HOME ]]; then
+    echo '🔗 Linking dotfiles'
+
+    mkdir -p ~/.config/
+
+    ## Git config
+    rm -rf ~/.gitignore_global
+    rm -rf ~/.gitconfig
+    ln -s $(pwd)/.gitignore_global ~/.gitignore_global
+    ln -s $(pwd)/.gitconfig ~/.gitconfig
+    touch ~/.gitconfig-macos
+
+    if [ $MACOS ]; then
+      rm -rf ~/.gitconfig-macos
+      ln -s $(pwd)/.gitconfig-macos ~/.gitconfig-macos
+    fi
+
+    mkdir -p ~/.ssh/
+    rm -rf ~/.ssh/config
+    ln -s $(pwd)/.ssh/config ~/.ssh/config
+
+    if [ $MACOS ]; then
+      mkdir -p ~/.ssh/sockets
+      chmod 0700 ~/.ssh/sockets
+    fi
+
+    ## Shell config
+    rm -rf ~/.config/fish
+    ln -s $(pwd)/.config/fish ~/.config/
+
+    rm -rf ~/.config/zsh
+    ln -s $(pwd)/.config/zsh ~/.config/
+
+    rm -rf ~/.zshrc
+    ln -s $(pwd)/.zshrc ~/.zshrc
+
+    rm -f ~/.config/starship.toml
+    ln -s $(pwd)/.config/starship.toml ~/.config/starship.toml
+
+    echo '🔗 DONE Linking dotfiles'
+  fi
+}
+
+function link_vscode() {
+  if [[ ! $(pwd) -ef $HOME ]]; then
+    echo '🔗 Linking VSCode settings'
+
+    mkdir -p "$VSCODE"
+    rm -f "$VSCODE/settings.json"
+    ln -s $(pwd)/vscode-settings.jsonc "$VSCODE/settings.json"
+
+    echo '🔗 Done linking VSCode settings'
+  fi
+}
+
+function fix_rubypaths() {
+  if [[ ! $(pwd) -ef $HOME ]]; then
+    if [ -d "/workspaces/github/bin" ]; then
+      sudo ln -s /workspaces/github/bin/rubocop /usr/local/bin/rubocop
+      sudo ln -s /workspaces/github/bin/srb /usr/local/bin/srb
+      sudo ln -s /workspaces/github/bin/solargraph /usr/local/bin/solargraph
+      sudo ln -s /workspaces/github/bin/safe-ruby /usr/local/bin/ruby
+    fi
+  fi
+}
+
+function install_zsh() {
+  if [ $MACOS ]
+  then
+    brew install zsh
+  elif [ $LINUX ]
+  then
+    mkdir -p ~/.zsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  fi
+  git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+}
+
+function install_software() {
+  if ! which starship > /dev/null
+  then
+    if [ $MACOS ]
+    then
+      curl -fsSL https://starship.rs/install.sh | sh
+    elif [ $LINUX ]
+    then
+      curl -sL https://starship.rs/install.sh | sh -s -- -y
+    fi
+  fi
+}
+
+function setup_software() {
+  # Setup codespace friendly name for shell prompt
+  codespace_friendly_name=$(gh api "/user/codespaces/$CODESPACE_NAME" -q .display_name)
+  if [[ $? -eq 0 && $codespace_friendly_name != *"Not Found"* ]]; then
+    echo $codespace_friendly_name >> $HOME/.friendly_name
+  fi
+}
+
+function setup_fish() {
+  # Initialize git fish plugin
+  fish_path=$(which fish || echo $brew_path/bin/fish)
+
+  # Change default shell to fish
+  sudo chsh -s $fish_path "$(whoami)"
+
+  # If shell is already in fish, then run the fish setup script
+  if [[ $SHELL == *fish ]] && [[ $MACOS ]]; then
+    fish_add_path /opt/homebrew/bin
+  fi
+}
+
+if [ $MACOS ]; then
+    link_dotfiles
+    link_vscode
+    install_software
+fi
+
+# echo '🔗 Linking files.'
+# echo `date +"%Y-%m-%d %T"`
+# link_files
+
+# echo '💽 Installing software'
+# echo `date +"%Y-%m-%d %T"`
+# install_software
+
+# echo '🧰 Configuring software'
+# echo `date +"%Y-%m-%d %T"`
+# setup_software
+
+echo '✅ Done!'
+echo `date +"%Y-%m-%d %T"`

@@ -91,3 +91,6 @@
 # Always use https on Codespaces
 [url "https://github.com/"]
   insteadOf = git@github.com:
+
+[include]
+  path = ~/.gitconfig-macos
