@@ -4,12 +4,6 @@
   # Don't prompt for commit messages for merge commits.
   mergeoptions = --no-edit
 
-{{- if (eq .chezmoi.os "darwin") }}
-[user]
-  name = Robert Crandall
-  email = "robert-crandall@github.com"
-{{- end }}
-
 [github]
   user = robert-crandall
 
@@ -73,11 +67,7 @@
   restrictRemote = false
 
 [merge]
-  {{- $v := output "git" "--version" | trim | split " " }}{{ if semverCompare ">2.35.0" $v._2 }}
-  conflictstyle = zdiff3  # Requires git 2.35 or later which isn't available on Codespaces by default
-  {{- else }}
-  conflictstyle = diff3
-  {{- end }}
+  conflictstyle = zdiff3  # Requires git 2.35 or later
 
 [feature]
   manyFiles = true
@@ -87,9 +77,7 @@
 
 [pull]
   rebase = false
-  {{- $v := output "git" "--version" | trim | split " " }}{{ if semverCompare ">2.33.0" $v._2 }}
-  twohead = ort  # Requires git 2.33 or later which isn't available on Codespaces by default
-  {{- end }}
+  twohead = ort  # Requires git 2.33 or later
 
 [advice]
   detachedHead = false
@@ -100,8 +88,6 @@
 [remote]
   pushDefault = origin
 
-{{- if .codespaces }}
 # Always use https on Codespaces
 [url "https://github.com/"]
   insteadOf = git@github.com:
-{{- end }}
