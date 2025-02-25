@@ -1,5 +1,5 @@
 # ruby
-alias aliases="cat ~/.config/fish/conf.d/ruby_aliases.fish"
+alias aliases="cat ~/.config/zah/aliases.zsh"
 alias ghserver="script/dx/server-start"
 alias ghlogs="script/dx/server-logs"
 alias ghenterprise="bin/setup --enterprise"
@@ -24,4 +24,4 @@ alias sorbet_run="SRB_SKIP_GEM_RBIS=1 bin/srb tc"
 alias sorbet_run_correct="SRB_SKIP_GEM_RBIS=1 bin/srb tc -a"
 
 # misc
-alias reload='exec fish'
+alias reload='exec zsh'
