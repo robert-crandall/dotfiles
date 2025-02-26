@@ -64,9 +64,6 @@ function link_dotfiles() {
         ln -s $(pwd)/gitconfig-macos ~/.gitconfig-macos
     fi
 
-    mkdir -p ~/.ssh/
-    _symlink_directory .ssh/config
-
     if [ $MACOS ]; then
       mkdir -p ~/.ssh/sockets
       chmod 0700 ~/.ssh/sockets
