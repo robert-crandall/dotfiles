@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/zsh
+
 # This file shouldn't be needed to run in Codespaces, because all files are symlinked to the home directory.
 # However, it's useful to have a script that can be run to install the dotfiles on a new machine.
 
@@ -21,7 +22,8 @@ then
   VSCODE="$APPDATA/Code/User"
 fi
 
-function symlink_file() {
+## Helper functions
+function _symlink_file() {
   local file_path="$1"
   local target="$HOME/$file_path"
   
@@ -32,7 +34,7 @@ function symlink_file() {
   ln -s "$(pwd)/$file_path" "$target"
 }
 
-function symlink_directory() {
+function _symlink_directory() {
   local dir_path="$1"
   local target="$HOME/$dir_path"
   local parent_dir=$(dirname "$target")
@@ -43,16 +45,17 @@ function symlink_directory() {
   
   ln -s "$(pwd)/$dir_path" "$parent_dir"
 }
+## Helper functions
+
 
 function link_dotfiles() {
   if [[ ! $(pwd) -ef $HOME ]]; then
+    echo
     echo '🔗 Linking dotfiles'
 
-    mkdir -p ~/.config/
-
     ## Git config
-    symlink_file .gitignore_global
-    symlink_file .gitconfig
+    _symlink_file .gitignore_global
+    _symlink_file .gitconfig
     touch ~/.gitconfig-macos
 
     if [ $MACOS ]; then
@@ -62,7 +65,7 @@ function link_dotfiles() {
     fi
 
     mkdir -p ~/.ssh/
-    symlink_directory .ssh/config
+    _symlink_directory .ssh/config
 
     if [ $MACOS ]; then
       mkdir -p ~/.ssh/sockets
@@ -70,20 +73,19 @@ function link_dotfiles() {
     fi
 
     ## Shell config
-    symlink_directory .config/fish
-    symlink_directory .config/zsh
-    symlink_file .zshrc
-    symlink_file .zshenv
-    symlink_file .p10k.zsh
-
-    symlink_file .config/starship.toml
+    _symlink_directory .zsh
+    _symlink_file .zshrc
+    _symlink_file .zshenv
+    _symlink_file .p10k.zsh
 
     echo '🔗 DONE Linking dotfiles'
+    echo
   fi
 }
 
 function link_vscode() {
   if [[ ! $(pwd) -ef $HOME ]]; then
+    echo
     echo '🔗 Linking VSCode settings'
 
     mkdir -p "$VSCODE"
@@ -91,16 +93,23 @@ function link_vscode() {
     ln -s $(pwd)/vscode-settings.jsonc "$VSCODE/settings.json"
 
     echo '🔗 Done linking VSCode settings'
+    echo
   fi
 }
 
 function fix_rubypaths() {
   if [[ ! $(pwd) -ef $HOME ]]; then
     if [ -d "/workspaces/github/bin" ]; then
+      echo
+      echo '💎 Fixing Ruby paths'
+
       sudo ln -s /workspaces/github/bin/rubocop /usr/local/bin/rubocop
       sudo ln -s /workspaces/github/bin/srb /usr/local/bin/srb
       sudo ln -s /workspaces/github/bin/solargraph /usr/local/bin/solargraph
       sudo ln -s /workspaces/github/bin/safe-ruby /usr/local/bin/ruby
+
+      echo '💎 DONE Fixing Ruby paths'
+      echo
     fi
   fi
 }
@@ -156,20 +165,7 @@ function setup_fish() {
 if [ $MACOS ]; then
     link_dotfiles
     link_vscode
-    install_software
 fi
-
-# echo '🔗 Linking files.'
-# echo `date +"%Y-%m-%d %T"`
-# link_files
-
-# echo '💽 Installing software'
-# echo `date +"%Y-%m-%d %T"`
-# install_software
-
-# echo '🧰 Configuring software'
-# echo `date +"%Y-%m-%d %T"`
-# setup_software
 
 echo '✅ Done!'
 echo `date +"%Y-%m-%d %T"`
