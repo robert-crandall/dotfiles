@@ -23,8 +23,8 @@ alias emutest="env TEST_WITH_ALL_EMUS=1 bin/rails test"
 alias ftest="env TEST_ALL_FEATURES=1 bin/rails test"
 alias mttest="env MULTI_TENANT_ENTERPRISE=1 bin/rails test"
 alias citest="bin/run-failed-ci"
-alias test_all="test_all_on_file"
-# Other commands: test_pr, test_pr_emu, test_pr_features, test_pr_all, test_all_on_file
+alias test_all="test_all_on"
+# Other commands: test_pr, test_pr_emu, test_pr_features, test_pr_all, test_all_on
 
 alias sorbet_reset="bin/rails db:reset && bin/tapioca dsl"
 alias sorbet_reset_long="bin/rails db:migrate db:test:soft_reset && bin/tapioca dsl"

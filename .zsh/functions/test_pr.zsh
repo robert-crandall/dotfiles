@@ -20,7 +20,7 @@ function test_pr_all() {
     "MULTI_TENANT_ENTERPRISE=1 bin/rails test"
 }
 
-function test_all_on_file() {
+function test_all_on() {
   local file=$1
   bin/rails test $file
   TEST_WITH_ALL_EMUS=1 bin/rails test $file
