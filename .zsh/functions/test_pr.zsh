@@ -20,7 +20,7 @@ function test_pr_all() {
     "MULTI_TENANT_ENTERPRISE=1 bin/rails test"
 }
 
-function all_tests() {
+function test_all_on_file() {
   local file=$1
   bin/rails test $file
   TEST_WITH_ALL_EMUS=1 bin/rails test $file
@@ -100,10 +100,10 @@ function gather_test_files() {
 }
 
 function find_test_files() {
-  local path=$1
-  if [[ $path =~ \.rb$ ]]; then
-    local new_path=${path##*/*/}
-    local test_file=${new_path%.rb}_test.rb
+  local file_path=$1
+  if [[ $file_path =~ \.rb$ ]]; then
+    local filename_without_path=${file_path##*/*/}
+    local test_file=${filename_without_path%.rb}_test.rb
     find . -type f -wholename "*/$test_file"
   fi
 }
