@@ -1,6 +1,4 @@
 [core]
-  excludesfile = ~/.config/git/ignore
-  attributesfile = ~/.config/git/attributes
   # Don't prompt for commit messages for merge commits.
   mergeoptions = --no-edit
 

@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-alias aliases="cat ~/.config/zsh/functions/aliases.zsh"
+alias aliases="cat ~/.zsh/functions/aliases.zsh"
 
 # Infrequent commands
 alias bootstrap="script/bootstrap"
