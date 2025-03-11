@@ -14,6 +14,7 @@ alias serviceowners_fix="bin/generate-service-files.rb"
 # server commands
 alias ghserver="script/dx/server-start"
 alias ghlogs="script/dx/server-logs"
+alias ghdotcom="bin/setup --dotcom"
 alias ghenterprise="bin/setup --enterprise"
 alias ghstop="script/dx/server-stop"
 
