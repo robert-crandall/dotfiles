@@ -81,17 +81,18 @@ function print_spaces() {
 }
 
 function gather_test_files() {
+  local gather_related_files=$1
   local -a modified_files=($(git diff --diff-filter=MA --name-only master...))
   local -a test_files=()
-  local -a extra_test_files=()
 
   for file in "${modified_files[@]}"; do
     if [[ $file =~ _test\.rb$ ]]; then
       test_files+=("$file")
-    else
-      while IFS= read -r found_test_file; do
+    elif [[ $gather_related_files == true ]]; then
+      local -a found_test_files=($(find_test_files "$file"))
+      for found_test_file in "${found_test_files[@]}"; do
         [[ -n "$found_test_file" ]] && test_files+=("${found_test_file#./}")
-      done < <(find_test_files "$file")
+      done
     fi
   done
 
