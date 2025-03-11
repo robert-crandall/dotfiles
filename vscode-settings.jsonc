@@ -7,6 +7,8 @@
   "editor.fontLigatures": true,
   "editor.tabSize": 2,
   "files.autoSave": "onFocusChange",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
   "terminal.integrated.enableMultiLinePasteWarning": "never",
   "editor.wordWrap": "on",
   "diffEditor.ignoreTrimWhitespace": false,
@@ -14,14 +16,31 @@
   "terminal.integrated.defaultProfile.osx": "zsh",
   "terminal.integrated.fontFamily": "MesloLGS NF",
   "terminal.integrated.fontSize": 13,
+  "workbench.startupEditor": "none",
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/tmp/**": true
+  },
+
+  // VS Code settings
   "oneDarkPro.bold": true,
   "explorer.confirmDelete": false,
   "editor.scrollBeyondLastLine": false,
+  "extensions.ignoreRecommendations": true,
+  "workbench.colorTheme": "One Dark Pro Darker",
 
   // Git
   "git.promptToSaveFilesBeforeCommit": "always",
   "git.confirmSync": false,
-  "scm.showHistoryGraph": false,
+  "git.autofetch": true,
+  "git.branchPrefix": "robert-crandall/",
 
   // GitHub
   "github.copilot.enable": {
@@ -32,30 +51,15 @@
     "erb": true,
     "ruby": true
   },
-
-  // Extensions
-  "sorbet.enabled": true,
-  "gitlens.blame.ignoreWhitespace": true,
-  "gitlens.showWelcomeOnInstall": false,
-  "gitlens.showWhatsNewAfterUpgrades": false,
-  "files.insertFinalNewline": true,
-  "files.trimFinalNewlines": true,
-  "redhat.telemetry.enabled": false,
-  "githubPullRequests.pullBranch": "never",
-  "workbench.startupEditor": "none",
-  "ruby.rubocop.onSave": true,
-  "git.autofetch": true,
-  "git.branchPrefix": "robert-crandall/",
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "workbench.colorTheme": "One Dark Pro Darker",
   "github.copilot.editor.enableAutoCompletions": true,
 
-  "files.watcherExclude": {
-    "**/.git/objects/**": true,
-    "**/.git/subtree-cache/**": true,
-    "**/node_modules/*/**": true,
-    "/volume3/home-ops/Library/**": true
-  }
+  // Extensions
+  "gitlens.blame.ignoreWhitespace": true,
+  "gitlens.showWhatsNewAfterUpgrades": false,
+  "githubPullRequests.pullBranch": "never",
+  "gitlens.codeLens.enabled": false,
+  "gitlens.statusBar.enabled": false,
+  "gitlens.changes.locations": [
+    "overview"
+  ]
 }
