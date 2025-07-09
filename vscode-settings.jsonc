@@ -61,5 +61,6 @@
   "gitlens.statusBar.enabled": false,
   "gitlens.changes.locations": [
     "overview"
-  ]
+  ],
+  "github.copilot.nextEditSuggestions.enabled": true
 }

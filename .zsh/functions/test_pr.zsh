@@ -1,6 +1,8 @@
 #!/bin/zsh
 
 function test_pr() {
+  sorbet_run_correct
+  run_rubocop
   run_on_modified_files "bin/rails test"
 }
 
@@ -66,6 +68,18 @@ function run_on_modified_files() {
   fi
 }
 
+function run_rubocop() {
+  local -a modified_files=($(modified_files))
+
+  print_header "Running rubocop on the following files:"
+  for file in "${modified_files[@]}"; do
+    echo "$file"
+  done
+  print_spaces
+
+  rubocop -a "${modified_files[@]}"
+}
+
 function print_header() {
   echo
   local header="$*"
@@ -82,7 +96,7 @@ function print_spaces() {
 
 function gather_test_files() {
   local gather_related_files=$1
-  local -a modified_files=($(git diff --diff-filter=MA --name-only master...))
+  local -a modified_files=($(gh pr view --json files --jq '.files[].path'))
   local -a test_files=()
 
   for file in "${modified_files[@]}"; do
@@ -107,4 +121,12 @@ function find_test_files() {
     local test_file=${filename_without_path%.rb}_test.rb
     find . -type f -wholename "*/$test_file"
   fi
+}
+
+_modified_files_cache=()
+function modified_files() {
+  if [[ ${#_modified_files_cache[@]} -eq 0 ]]; then
+    _modified_files_cache=($(gh pr view --json files --jq '.files[].path'))
+  fi
+  printf '%s\n' "${_modified_files_cache[@]}"
 }
