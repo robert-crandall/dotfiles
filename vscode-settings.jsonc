@@ -62,5 +62,11 @@
   "gitlens.changes.locations": [
     "overview"
   ],
-  "github.copilot.nextEditSuggestions.enabled": true
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "remote.autoForwardPortsSource": "hybrid",
+  "github.copilot.chat.agent.terminal.allowList": {
+    "bun install": true,
+    "bun run": true,
+    "bun playwright": true
+  }
 }
