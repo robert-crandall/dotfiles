@@ -3,6 +3,7 @@
 function test_pr() {
   sorbet_run_correct
   run_rubocop
+  run_packwerk
   run_on_modified_files "bin/rails test"
 }
 
@@ -78,6 +79,10 @@ function run_rubocop() {
   print_spaces
 
   rubocop -a "${modified_files[@]}"
+}
+
+function run_packwerk() {
+  bin/packwerk update-todo
 }
 
 function print_header() {
