@@ -60,9 +60,6 @@ path=(~/bin $path)
 # Export environment variables.
 export GPG_TTY=$TTY
 
-# Source additional local files if they exist.
-z4h source ~/.env.zsh
-
 # Define key bindings.
 z4h bindkey undo Ctrl+/   Shift+Tab  # undo the last command line change
 z4h bindkey redo Option+/            # redo the last undone command line change
@@ -76,6 +73,7 @@ z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
 autoload -Uz zmv
 
 # Define functions and completions.
+
 function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
 
@@ -88,9 +86,9 @@ alias tree='tree -a -I .git'
 # Add flags to existing aliases.
 alias ls="${aliases[ls]:-ls} -A"
 
-# Source custom files
-for function_file in ~/.zsh/functions/*; do
-  source $function_file
+# Source custom files (optimized loading)
+for function_file in ~/.zsh/functions/*.zsh(N); do
+  [[ -r "$function_file" ]] && source "$function_file"
 done
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
@@ -104,3 +102,6 @@ setopt no_auto_menu  # require an extra TAB press to open the completion menu
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export JETBRAINS_LICENSE_SERVER=https://github.jetbrains-ide-services.com
+. "/Users/robert-crandall/.deno/env"
+# Cache Go PATH to avoid running 'go env' every startup
+export PATH="$HOME/go/bin:$PATH"
