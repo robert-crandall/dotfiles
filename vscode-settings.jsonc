@@ -68,5 +68,34 @@
     "bun install": true,
     "bun run": true,
     "bun playwright": true
-  }
+  },
+  "azureTerraform.survey": {
+    "surveyPromptDate": "2026-02-13T18:35:21.287Z",
+    "surveyPromptIgnoredCount": 3
+  },
+  "chat.tools.global.autoApprove": true,
+  "chat.tools.terminal.autoApprove": {
+    "go": true,
+    "sed": true,
+    "bin/rails": true
+  },
+  "chat.edits2.enabled": true,
+  "inlineChat.enableV2": true,
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "chat.mcp.gallery.enabled": true,
+  "chat.viewSessions.orientation": "stacked",
+  "@azure.argTenant": "",
 }

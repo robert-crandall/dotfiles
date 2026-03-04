@@ -71,6 +71,7 @@ function link_dotfiles() {
 
     ## Shell config
     _symlink_directory .zsh
+    _symlink_directory .github
     _symlink_file .zshrc
     _symlink_file .zshenv
     _symlink_file .p10k.zsh
