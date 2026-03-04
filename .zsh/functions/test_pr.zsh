@@ -71,14 +71,15 @@ function run_on_modified_files() {
 
 function run_rubocop() {
   local -a modified_files=($(modified_files))
+  local -a ruby_files=(${(M)modified_files[@]:#*.rb})
 
   print_header "Running rubocop on the following files:"
-  for file in "${modified_files[@]}"; do
+  for file in "${ruby_files[@]}"; do
     echo "$file"
   done
   print_spaces
 
-  rubocop -a "${modified_files[@]}"
+  rubocop -a "${ruby_files[@]}"
 }
 
 function run_packwerk() {
