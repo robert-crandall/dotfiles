@@ -1,6 +1,15 @@
 #!/bin/zsh
 
-alias aliases="cat ~/.zsh/functions/aliases.zsh"
+alias aliases="cat $DOTFILES/zsh/aliases.zsh"
+
+# Shell
+alias c='clear'
+alias reload='exec zsh'
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  alias ls='ls -G'
+else
+  alias ls='ls --color=auto'
+fi
 
 # Infrequent commands
 alias bootstrap="script/bootstrap"
@@ -31,6 +40,3 @@ alias sorbet_reset="bin/rails db:reset && bin/tapioca dsl"
 alias sorbet_reset_long="bin/rails db:migrate db:test:soft_reset && bin/tapioca dsl"
 alias sorbet_run="SRB_SKIP_GEM_RBIS=1 bin/srb tc"
 alias sorbet_run_correct="SRB_SKIP_GEM_RBIS=1 bin/srb tc -a"
-
-# misc
-alias reload='exec zsh'
