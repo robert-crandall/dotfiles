@@ -48,6 +48,12 @@ if [[ -d "$VSCODE_DIR" ]]; then
   _symlink "$DOTFILES_DIR/vscode-settings.jsonc" "$VSCODE_DIR/settings.json"
 fi
 
+# ── GitHub / Copilot ───────────────────────────────────────────────────────────
+mkdir -p "$HOME/.github"
+_symlink "$DOTFILES_DIR/.github/copilot-instructions.md" "$HOME/.github/copilot-instructions.md"
+mkdir -p "$HOME/.copilot"
+_symlink "$DOTFILES_DIR/copilot-skills" "$HOME/.copilot/skills"
+
 # ── SSH ───────────────────────────────────────────────────────────────────────
 mkdir -p "$HOME/.ssh/sockets"
 chmod 0700 "$HOME/.ssh/sockets"

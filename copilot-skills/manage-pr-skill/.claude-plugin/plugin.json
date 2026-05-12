@@ -1,0 +1,7 @@
+{
+  "name": "manage-pr",
+  "description": "Drive a pull request through the address-feedback / re-request-Copilot-review / watch-CI loop until it's clean. Encodes the [bot] login gotcha and other hard-won CCR re-request lessons.",
+  "author": {
+    "name": "GitHub"
+  }
+}

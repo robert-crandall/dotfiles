@@ -73,6 +73,8 @@
     "surveyPromptDate": "2026-02-13T18:35:21.287Z",
     "surveyPromptIgnoredCount": 3
   },
+  "chat.newSession.defaultMode": "agent",
+  "chat.permissions.default": "autoApprove",
   "chat.tools.global.autoApprove": true,
   "chat.tools.terminal.autoApprove": {
     "go": true,
@@ -98,4 +100,12 @@
   "chat.mcp.gallery.enabled": true,
   "chat.viewSessions.orientation": "stacked",
   "@azure.argTenant": "",
+  "chat.hookFilesLocations": {
+    ".github/hooks": true,
+    ".claude/settings.local.json": true,
+    ".claude/settings.json": true,
+    "~/.copilot/hooks": true,
+    "~/.claude/settings.json": true,
+    "~/.agents/hooks": true
+  },
 }
