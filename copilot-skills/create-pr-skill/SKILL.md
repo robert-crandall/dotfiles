@@ -77,8 +77,6 @@ git commit -m "<short imperative summary, ~50 chars>
 
 <wrapped body explaining motivation, what changed, and what didn't change.
 Tie it back to the user-visible problem if there is one.>
-
-Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
 ```
 
 Always include the Copilot Co-authored-by trailer.

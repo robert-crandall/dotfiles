@@ -35,22 +35,21 @@ resolve() {
 
 # 1. Auth_preflight unused return value
 reply 3162052813 "Fixed in $SHA — dropped the unused return value and updated the docstring + references."
-resolve "PRRT_kwDORK0ISs5-ehTB"
+resolve "PRRT_rando-ehTB"
 
 # 2. gh extension check returncode handling
 reply 3162052776 "Fixed in $SHA — check.returncode != 0 is now handled separately and surfaces the actual stderr."
-resolve "PRRT_kwDORK0ISs5-ehSm"
+resolve "PRRT_rando-ehSm"
 
 # 3. Boundaries DM wording
 reply 3162052701 "Reworded in $SHA — boundary is permission inheritance, not a hard-coded DM exclusion."
-resolve "PRRT_kwDORK0ISs5-ehR4"
+resolve "PRRT_rando-ehR4"
 ```
 
 ## Tips
 
 - Group **all** the addressed threads into one commit when possible — one SHA referenced in many replies is much cleaner for the reviewer than N tiny commits.
 - Don't auto-resolve threads you disagreed with or partially declined. Reply, explain, and let the reviewer (or user) make the call.
-- If a reply ID needs to include the literal `Co-authored-by:` trailer in the *commit* (not the comment), use `git commit -m "..." -m "Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"` (multiple `-m` create paragraph breaks).
 
 ## Getting the IDs you need
 
