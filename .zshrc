@@ -33,4 +33,4 @@ if [[ -z "$CODESPACES" ]]; then
   command -v starship &>/dev/null && eval "$(starship init zsh)"
 fi
 
-. "$HOME/.local/bin/env"
+[[ -r "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"

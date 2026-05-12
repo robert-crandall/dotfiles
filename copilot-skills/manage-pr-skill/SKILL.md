@@ -92,7 +92,7 @@ For every thread you addressed, post a reply explaining the fix (referencing the
 ```bash
 # Reply
 gh api repos/$OWNER/$REPO/pulls/$PR/comments -X POST \
-  -f body="Fixed in $SHA — <one-line explanation>" \
+  -f body="Fixed in $SHA - <one-line explanation>" \
   -F in_reply_to="$COMMENT_DATABASE_ID"
 
 # Resolve (use the thread node ID from the GraphQL snapshot)
@@ -151,7 +151,7 @@ Then surface a one-line "ready to merge" summary to the user and stop.
 For each iteration, give the user a compact status snapshot before doing more work:
 
 ```text
-PR #289 — slack-search skill
+PR #289 - slack-search skill
   head:       830f66a (1 commit ahead of last review)
   reviews:    3 unresolved threads (all from copilot-pull-request-reviewer)
   CI:         3 of 7 checks completed (all passing so far)

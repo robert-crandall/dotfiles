@@ -34,21 +34,21 @@ resolve() {
 }
 
 # 1. Auth_preflight unused return value
-reply 3162052813 "Fixed in $SHA — dropped the unused return value and updated the docstring + references."
+reply 3162052813 "Fixed in $SHA - dropped the unused return value and updated the docstring + references."
 resolve "PRRT_rando-ehTB"
 
 # 2. gh extension check returncode handling
-reply 3162052776 "Fixed in $SHA — check.returncode != 0 is now handled separately and surfaces the actual stderr."
+reply 3162052776 "Fixed in $SHA - check.returncode != 0 is now handled separately and surfaces the actual stderr."
 resolve "PRRT_rando-ehSm"
 
 # 3. Boundaries DM wording
-reply 3162052701 "Reworded in $SHA — boundary is permission inheritance, not a hard-coded DM exclusion."
+reply 3162052701 "Reworded in $SHA - boundary is permission inheritance, not a hard-coded DM exclusion."
 resolve "PRRT_rando-ehR4"
 ```
 
 ## Tips
 
-- Group **all** the addressed threads into one commit when possible — one SHA referenced in many replies is much cleaner for the reviewer than N tiny commits.
+- Group **all** the addressed threads into one commit when possible - one SHA referenced in many replies is much cleaner for the reviewer than N tiny commits.
 - Don't auto-resolve threads you disagreed with or partially declined. Reply, explain, and let the reviewer (or user) make the call.
 
 ## Getting the IDs you need

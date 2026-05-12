@@ -102,7 +102,7 @@ In a worktree without `bin/` (no dev container), explicitly tell the user you di
 
 ### 6. Create the PR (draft by default)
 
-Use `--body-file` for non-trivial bodies — `--body` with multi-line strings is brittle in shell:
+Use `--body-file` for non-trivial bodies; `--body` with multi-line strings is brittle in shell:
 
 ```bash
 cat > /tmp/pr-body-<branch>.md <<'EOF'
