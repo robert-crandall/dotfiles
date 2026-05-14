@@ -32,3 +32,10 @@ Write in the following style:
 - Link everything - issues, commits, prior PRs
 - Still conversational, not stuffy
 - Okay to flag confusion honestly
+
+## Starting Work on a Project
+
+When beginning a new effort on a project:
+
+1. Run the `cleanup-worktrees` skill to remove any worktrees whose PRs have already been merged.
+2. Create a new worktree for the new effort - follow the `create-pr` skill for how to do this correctly.

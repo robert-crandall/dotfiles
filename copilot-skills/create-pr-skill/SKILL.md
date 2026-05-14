@@ -30,14 +30,17 @@ Default behavior: **always create a git worktree for the new branch** unless the
 cd /path/to/their/repo
 git fetch origin <default-branch> --quiet
 
-# Create the worktree as a sibling directory
-git worktree add -b <user>/<short-description> ../<repo-name>-<short-description> origin/<default-branch>
-cd ../<repo-name>-<short-description>
+# Create the worktrees container directory if it doesn't exist
+mkdir -p ../<repo-name>.worktrees
+
+# Create the worktree inside the container directory
+git worktree add -b <user>/<short-description> ../<repo-name>.worktrees/<short-description> origin/<default-branch>
+cd ../<repo-name>.worktrees/<short-description>
 ```
 
 Naming conventions:
 - Branch: `<user>/<kebab-case-description>` (e.g. `alice/hydro-publish-success-counter`)
-- Worktree directory: `<repo-name>-<short-description>` as a sibling of the original checkout
+- Worktree directory: `../<repo-name>.worktrees/<short-description>` inside a shared container directory sibling to the original checkout
 
 After the work is done, leave the worktree in place (the user can clean up later with `git worktree remove`). Don't delete it as part of "finishing."
 
