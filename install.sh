@@ -49,9 +49,8 @@ if [[ -d "$VSCODE_DIR" ]]; then
 fi
 
 # ── GitHub / Copilot ───────────────────────────────────────────────────────────
-mkdir -p "$HOME/.github"
-_symlink "$DOTFILES_DIR/.github/copilot-instructions.md" "$HOME/.github/copilot-instructions.md"
 mkdir -p "$HOME/.copilot"
+_symlink "$DOTFILES_DIR/.copilot/copilot-instructions.md" "$HOME/.copilot/copilot-instructions.md"
 _symlink "$DOTFILES_DIR/copilot-skills" "$HOME/.copilot/skills"
 
 # ── SSH ───────────────────────────────────────────────────────────────────────

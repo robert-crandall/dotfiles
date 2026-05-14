@@ -1,0 +1,7 @@
+{
+  "name": "cleanup-worktrees",
+  "description": "Safely garbage-collect git worktrees whose PRs are merged. Encodes safety checks (PR merged, no uncommitted changes, no unpushed commits, not the primary checkout) that prevent accidental data loss.",
+  "author": {
+    "name": "GitHub"
+  }
+}

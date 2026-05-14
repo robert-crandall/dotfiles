@@ -45,7 +45,7 @@ The skill will:
 
 1. Create a `git worktree` in a sibling directory so the user's primary checkout isn't disturbed
 2. Detect and read the repo's PR template
-3. Write a meaningful commit message with the Copilot Co-authored-by trailer
+3. Write a meaningful commit message
 4. Push the branch and open a `--draft` PR using `--body-file` (no shell-quoting hazards)
 5. Report back with the PR URL, worktree path, diff size, and what was/wasn't tested locally
 
