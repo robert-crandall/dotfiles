@@ -12,3 +12,16 @@ copilot-skills/*/.token.*
 __pycache__/
 *.pyc
 copilot-skills/.DS_Store
+
+# Internal skills - real content lives in ~/.agents/skills,
+# these are symlinks so Copilot CLI still loads them.
+copilot-skills/datadog
+copilot-skills/sentry
+copilot-skills/splunk
+copilot-skills/chatops
+copilot-skills/tailnet_proxy.py
+copilot-skills/remember
+
+# Skill provenance metadata - names private upstream repos
+copilot-skills/*/.skill-source
+.DS_Store
