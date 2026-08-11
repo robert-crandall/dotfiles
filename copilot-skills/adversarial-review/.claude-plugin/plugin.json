@@ -1,0 +1,7 @@
+{
+  "name": "adversarial-review",
+  "description": "Get a hostile critique of a plan, diff, or design before committing to it. Runs as a background rubber-duck agent on a different model lineage so the critique is genuinely independent.",
+  "author": {
+    "name": "GitHub"
+  }
+}
