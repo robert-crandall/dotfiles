@@ -1,7 +1,0 @@
-{
-  "name": "create-pr",
-  "description": "Open a high-quality draft pull request using a worktree (so it doesn't collide with the user's inflight branches) and the repo's PR template (so it doesn't get bounced for missing fields).",
-  "author": {
-    "name": "GitHub"
-  }
-}
