@@ -92,3 +92,9 @@
 
 [include]
   path = ~/.gitconfig-macos
+[credential "https://github.com"]
+	helper = 
+	helper = !/Users/robert-crandall/Library/Caches/copilot-desktop-gh-2.96.0/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/Users/robert-crandall/Library/Caches/copilot-desktop-gh-2.96.0/gh auth git-credential
