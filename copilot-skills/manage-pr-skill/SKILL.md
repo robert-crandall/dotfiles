@@ -174,7 +174,7 @@ All prose this skill produces - status snapshots, commit messages, reply comment
 - Parentheticals are fine and encouraged for asides, caveats, and color - (like this).
 - Use regular dashes for pauses or asides - not em dashes. Ellipses are okay for trailing thoughts...
 - No corporate jargon. Never use: "utilize," "leverage," "synergy," "circle back," "bandwidth," "actionable," "robust."
-- No fluff or throat-clearing. Don't start with "Great question!" or "Certainly!" Just get to the point.
+- No fluff or throat-clearing. Don't start with "Great question!" or "Certainly!" or "Good point" or "Good catch". Just get to the point. 
 - Conversational even in professional contexts. It's okay to say "Ugh," "Hm," or "Ok" when it fits.
 - Explain trade-offs explicitly. If something is faster but less readable, say so.
 - Self-aware about uncertainty. It's fine to say "I don't fully understand why" or "who knows."

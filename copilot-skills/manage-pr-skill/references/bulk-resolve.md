@@ -14,8 +14,8 @@ Use this when you've addressed N review threads in a single commit and want to r
 ## Template
 
 ```bash
-OWNER=github
-REPO=agent-skills
+OWNER=owner
+REPO=repo
 PR=289
 SHA=$(git rev-parse HEAD)
 

@@ -41,7 +41,7 @@ cp -r manage-pr-skill .github/skills/manage-pr-skill
 
 Just ask:
 
-- "Address the PR feedback on github/agent-skills#289"
+- "Address the PR feedback on owner/repo#289"
 - "Re-request a Copilot review on this PR"
 - "Wait for CI on PR #42 and tell me if anything fails"
 - "Iterate on this PR until it's ready to merge"
