@@ -34,3 +34,4 @@ if [[ -z "$CODESPACES" ]]; then
 fi
 
 [[ -r "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
+path=("$HOME/bin" $path)

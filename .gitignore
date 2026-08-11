@@ -1,1 +1,14 @@
 backup/
+
+# Local secrets - never commit these
+.dotfiles-secrets
+*.secrets
+secrets.env
+.env.local
+
+# Copilot skill credentials (auto-agentics splunk/sentry/datadog skills)
+copilot-skills/*/.token
+copilot-skills/*/.token.*
+__pycache__/
+*.pyc
+copilot-skills/.DS_Store
