@@ -130,7 +130,7 @@ Hold these yourself between stages. A gate the orchestrator waves through is not
   a `must-fix` it replied to but didn't fix, scope creep, or its own three-round budget —
   hand that to the user instead of rerunning it.
 
-**Loop budget:** if any stage is about to be entered a third time, stop. Hand the user a
+**Loop budget:** if any stage is about to be entered a fifth time, stop. Hand the user a
 summary of what keeps failing and what the two models disagree about. The user can decide who is right. Give the user the context they need to answer. One or two sentences of the facts the question rests on, before the question itself. Do not assume the user already holds them.Use plain language. One idea per sentence. Short sentences. Active voice. The same word for the same thing every time. Define a term at first use, or pick a plainer one. Where the project has a `CONTEXT.md`, use its words for domain terms. Stopping here is only asking the user to arbitrate a disagreement between two models, it is not stopping the overall implementation.
 
 ## 5. Report
