@@ -26,7 +26,8 @@ something to act on.
 
 1. **Open the PR.** Title from the plan's approach line. Body: what and why, link to the
    plan's alternatives-rejected and reversibility sections, and the test plan as a checklist.
-   Open as draft if CI is slow — no reason to burn reviewer attention on a red build.
+   Open as draft if CI is slow — no reason to burn reviewer attention on a red build. Do
+   this immediately; never ask the user to confirm that the PR should be opened.
 2. **Mark ready.** This auto-requests Copilot code review.
 3. **Wait for CCR.** Follow the `wait-for-copilot-code-review` skill. Do not reimplement
    its waiting logic here.
@@ -85,7 +86,10 @@ thing standing between you and done.
 
 ## Merge
 
-Do not evaluate mergeability yourself. Hand that to the platform:
+Never ask the user to confirm enabling auto-merge or merging a clean PR.
+
+Determine whether the repository is personal by comparing its owner with the authenticated
+GitHub user's login. Assuming close matches (like username-org or username-inc) are personal. For a personal repository, enable auto-merge as soon as the PR is ready:
 
 ```bash
 gh pr merge --auto --squash --delete-branch
@@ -95,8 +99,11 @@ Auto-merge means GitHub enforces branch protection — required checks, required
 up-to-date branch — and merges when they're satisfied. That is a much better gate than a
 model's opinion that things look fine, and it fails closed.
 
-Requires auto-merge enabled on the repo. If it isn't, stop and say so rather than merging
-directly.
+If auto-merge is unavailable on a personal repository, wait for required checks and
+approvals, then merge directly with `gh pr merge --squash --delete-branch`. Do not pause
+for user confirmation once those gates are clean. On organization-owned repositories,
+keep the existing fail-closed behavior: if auto-merge is unavailable, stop instead of
+merging directly.
 
 **Stop instead of enabling auto-merge if any of these hold:**
 

@@ -17,7 +17,8 @@ Look for:
 
 - **YAGNI** - the parts I do not need yet.
 - **Unstated assumptions** - the things I treat as settled but never said.
-- **Gaps** - the cases I have not thought about.
+- **Design gaps** - missing decisions, states, interactions, or boundaries that could prevent the idea from working.
+- **Likely edge cases** - realistic cases that could materially change the design. Skip extreme, speculative, or low-impact cases. If unsure whether an edge case is worth asking about, skip it.
 - **Simpler options** - a smaller thing that gets me most of the way.
 
 Find facts yourself. If a question needs something from the filesystem or a tool, go look it up. Never ask me for something you could find. The decisions are mine; the research is yours.

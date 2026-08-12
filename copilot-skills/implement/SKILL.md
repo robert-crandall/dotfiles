@@ -32,6 +32,9 @@ Stage 7 is separate from the tier. Run it whenever the change lands through a pu
 request, at any tier — including tier 1. Skip it when the user is working locally, on
 `main`, or has said they'll open the PR themselves.
 
+Do not pause for confirmation before stage 7. Once verification passes and stage 7
+applies, open the PR immediately.
+
 **Complete when:** the tier is stated and the user has not objected.
 
 ## 2. Set up the run
@@ -124,7 +127,8 @@ Hold these yourself between stages. A gate the orchestrator waves through is not
   recorded and left alone.
 - **After stage 6** — `FIXED` is fine. `ESCALATED` goes back to stage 2, not stage 4:
   if the plan didn't cover it, implementing a fix means designing without a plan.
-  Only `PASS` or `FIXED` may enter stage 7.
+  Only `PASS` or `FIXED` may enter stage 7. Enter it immediately without asking the user
+  to confirm opening the PR.
 - **After stage 7** — read `06-pr.md`. Anything it escalated goes back to stage 2. If it
   stopped short of auto-merge — unresolved human comment, `changes-requested`, conflicts,
   a `must-fix` it replied to but didn't fix, scope creep, or its own three-round budget —
