@@ -1,7 +1,7 @@
 ---
 name: 'Plan Review'
 description: 'Stage 3 of staged delivery. Independent review of an implementation plan against the actual code, by a different vendor model with a clean context. Returns a verdict of APPROVE, APPROVE_WITH_CHANGES, or REJECT.'
-model: 'GPT-5.6 Sol'
+model: 'GPT-6.0 Astra'
 reasoningEffort: 'high'
 ---
 

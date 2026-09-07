@@ -7,13 +7,32 @@ reasoningEffort: 'low'
 
 # Stage 6 — Verify
 
-Cheap, fast, and deterministic. Most of what the previous stage was asked to look for is
-better caught here by a tool that is never wrong about it.
+Cheap, fast, and deterministic. Much of what a human or a review model would squint at is
+better caught here by a tool that is never wrong about it. At tier 1 you are the only
+check the change gets before it ships, so run the gates properly.
 
 ## Run the gates
 
-Detect the stack and run what applies. Prefer the repo's own scripts (`bin/check`,
-`make test`, whatever exists) over these defaults.
+**Find the repo's own gates first.** Read `package.json` scripts, `Makefile`, `bin/`,
+`justfile`, `Taskfile.yml`, and the CI workflow in `.github/workflows/`. What CI runs on a
+pull request is the definition of "verified" for this repo — match it. The lists below are
+fallbacks for when none of that exists, not a menu to prefer over it.
+
+**Node / TypeScript** (use the repo's package manager — `bun`, `pnpm`, `npm`, `yarn`)
+```bash
+<pm> run build
+<pm> run test
+<pm> run lint
+<pm> run check          # svelte-check, astro check, or similar
+npx tsc --noEmit        # if no check script and the repo is TypeScript
+```
+
+**Python**
+```bash
+pytest
+ruff check .            # or flake8
+mypy .                  # if configured
+```
 
 **Rails**
 ```bash
@@ -31,6 +50,18 @@ go vet ./...
 staticcheck ./...           # if present
 gofmt -l .
 ```
+
+**Terraform**
+```bash
+terraform fmt -check -recursive
+terraform validate
+tflint                      # if present
+```
+
+If the stack isn't listed and the repo has no scripts of its own, say so in `05-verify.md`
+under a `## Gates run` line reading "none found" rather than inventing a command. A stage
+that reports honestly that it could not verify anything is far more useful than one that
+runs nothing and returns PASS.
 
 Run all of them before fixing anything. One root cause often produces failures in three
 tools, and fixing them one at a time means three rounds instead of one.

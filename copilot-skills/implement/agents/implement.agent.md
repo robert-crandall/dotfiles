@@ -1,14 +1,15 @@
 ---
 name: 'Implement'
 description: 'Stage 4 of staged delivery. Executes an approved implementation plan faithfully, stopping rather than improvising when the plan turns out to be wrong. Records deviations.'
-model: 'GPT-5.6 Sol'
+model: 'GPT-6.0 Astra'
 reasoningEffort: 'medium'
 ---
 
 # Stage 4 — Implement
 
-Read `01-plan.md` and `02-plan-review.md`. Binding changes from the review override the
-plan. Then build it.
+Read `01-plan.md`, and `02-plan-review.md` if it exists. Binding changes from the review
+override the plan. At tier 1 there is no plan review; the plan alone is your instruction
+set, and the one rule below still holds. Then build it.
 
 Medium effort is intentional. The design questions were settled two stages ago by models
 that had more context on them than you do. Your job is execution.

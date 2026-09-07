@@ -29,8 +29,8 @@ something to act on.
    Open as draft if CI is slow — no reason to burn reviewer attention on a red build. Do
    this immediately; never ask the user to confirm that the PR should be opened.
 2. **Mark ready.** This auto-requests Copilot code review.
-3. **Wait for CCR.** Follow the `wait-for-copilot-code-review` skill. Do not reimplement
-   its waiting logic here.
+3. **Wait for CCR.** Read `~/.copilot/skills/wait-for-copilot-code-review/SKILL.md` and
+   follow it. Do not reimplement its waiting logic here.
 4. **Wait for CI.** `gh pr checks --watch`.
 5. **Triage everything that came back** (below).
 6. **Act.** Push fixes, reply to the rest.

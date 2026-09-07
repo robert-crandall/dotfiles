@@ -16,7 +16,8 @@ you anchor them and the plan stage stops being independent.
    breaks a plan is usually the caller nobody looked at.
 2. Establish what exists today: current behaviour, current shape of the data, current
    tests covering it.
-3. Identify the ambiguities. Run a grilling session to get the answers.
+3. Identify the ambiguities and write them down. You cannot ask the user anything — you
+   have no channel to them. The orchestrator asks your questions after you finish.
 
 ## Write `00-scope.md`
 

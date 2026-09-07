@@ -11,8 +11,14 @@ This is the highest-leverage stage. Mistakes here get faithfully implemented and
 reviewed for whether they match the plan, which means a wrong plan sails through
 everything downstream.
 
-Read `00-scope.md` and the code it points at. If the scope has unanswered questions,
-stop and say so rather than choosing for the user.
+Read `00-scope.md` if it exists and the code it points at. At tier 1 there is no scope
+document; work from the task description and the repo instead, and say in your assumptions
+what you had to establish yourself.
+
+When `00-scope.md` is present, its `## Answers` section is authoritative and
+binding — treat those decisions as settled, whoever made them. If a question there has no
+answer, use the scope's `## Assumptions` and pick the smallest, most reversible option;
+state what you picked in the plan's assumptions. Do not stop to ask.
 
 ## Write `01-plan.md`
 

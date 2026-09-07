@@ -12,8 +12,14 @@ The file handoff is the whole point. A reviewer that already saw the reasoning b
 the thing it is reviewing is a rubber stamp.
 
 You are the orchestrator. You do not scope, plan, implement, review, verify, or open the
-PR yourself — you size the work, run the stages, hold the gates, and stop when the loop
-budget blows.
+PR yourself — you size the work, run the stages, hold the gates, and settle unresolved
+disagreements without stopping the pipeline.
+
+**The run is fully autonomous.** From the moment you start until the final report, do not
+ask the user anything and do not wait for confirmation at any gate. Every open question,
+disagreement, and block is yours to decide. Record each call in the run artifacts and
+report them all at the end. A pipeline that stops halfway to ask a question is worse than
+one that makes a defensible call and says so.
 
 ## 1. Size the work first
 
@@ -35,7 +41,7 @@ request, at any tier — including tier 1. Skip it when the user is working loca
 Do not pause for confirmation before stage 7. Once verification passes and stage 7
 applies, open the PR immediately.
 
-**Complete when:** the tier is stated and the user has not objected.
+**Complete when:** the tier is stated. Do not wait for the user to agree with it.
 
 ## 2. Set up the run
 
@@ -74,6 +80,12 @@ one's output.
 | 6 | `verify.agent.md` | `gpt-5.6-terra` | `low` | repo, `01-plan.md` | `05-verify.md` |
 | 7 | `pr.agent.md` | `claude-sonnet-5` | `medium` | `01-plan.md`, `04-code-review.md`, `05-verify.md` | PR, `06-pr.md` |
 
+**Never name an input file that does not exist.** At tier 1, stages 1 and 3 never run, so
+`00-scope.md` and `02-plan-review.md` are not there. Drop them from stage 2's and stage 4's
+input lists and say in the prompt that the run is tier 1, rather than pointing a stage at a
+missing file and letting it decide what that means. Same rule for any rerun: list only what
+has actually been written.
+
 Stage 1 is deliberately not the strongest model — that work is retrieval, not reasoning.
 Stage 4 is deliberately medium effort; high effort there makes the model relitigate
 decisions stages 2 and 3 already settled. Stage 7 is a different vendor from stage 4 on
@@ -88,9 +100,10 @@ comments, so a bad call there costs someone else's attention.
 ```
 You are stage <n> of a staged delivery pipeline.
 
-Read ~/.copilot/skills/implement/agents/<stage>.agent.md and follow it exactly —
-it is your full instruction set, including the output format and the things you
-must not do. Ignore its YAML frontmatter; your model and effort are already set.
+Read the stage file at <absolute path to ~/.copilot/skills/implement/agents/<stage>.agent.md>
+and follow it exactly — it is your full instruction set, including the output format
+and the things you must not do. Ignore its YAML frontmatter; your model and effort
+are already set.
 
 Task: <one-line task description>
 Run directory: <abs path>/.copilot/runs/<slug>/
@@ -102,6 +115,12 @@ Write your output to <abs path>/.copilot/runs/<slug>/<output file>.
 Report back only your verdict/status line and a two-sentence summary.
 ```
 
+**Paths must be absolute.** Sub-agents cannot expand `~`. Substitute the real home
+directory in both the stage-file path and the run directory before sending the prompt.
+
+**Sub-agents have no channel to the user.** They cannot ask questions and cannot invoke
+skills. Anything that needs a human decision comes back to you.
+
 **Pass only the inputs the table names.** Do not helpfully forward extra context — handing
 stage 3 the reasoning behind the plan is exactly what defeats stage 3. Do not paste a
 previous stage's summary into the next stage's prompt; the file is the handoff.
@@ -110,21 +129,32 @@ previous stage's summary into the next stage's prompt; the file is the handoff.
 
 Hold these yourself between stages. A gate the orchestrator waves through is not a gate.
 
-- **After stage 1** — stop. Show the user the questions from `00-scope.md` and ask them.
-  Use `ask_user`, one question at a time, highest-ranked first. Write the answers into
-  `00-scope.md` under an `## Answers` heading before starting stage 2. Do not let the
-  pipeline guess past an ambiguity; that is the only reason stage 1 exists.
-  If stage 1 wrote "None", say so and continue.
+- **After stage 1** — do not stop. Answer the questions in `00-scope.md` yourself, highest
+  ranked first, using the repo, the task description, and stage 1's own `## Assumptions`
+  section. Write them into `00-scope.md` under an `## Answers` heading, each one marked
+  `[decided by orchestrator]` with a one-line reason, before starting stage 2. Where the
+  facts genuinely don't settle it, pick the option that keeps the change smallest and most
+  reversible, and prefer matching what the codebase already does over introducing a new
+  pattern. Every question gets an answer — leaving one open makes stage 2 guess silently,
+  which is the thing stage 1 exists to prevent. If stage 1 wrote "None", continue.
+  Surface the decisions in the final report, not before.
 - **After stage 3** — read the verdict.
   - `APPROVE` → stage 4.
   - `APPROVE_WITH_CHANGES` → stage 4, and the binding changes are binding.
-  - `REJECT` → back to stage 2, with `02-plan-review.md` added to its inputs.
+  - `REJECT` → back to stage 2, with `02-plan-review.md` added to its inputs. Let the
+    planner and reviewer attempt at most two consecutive disagreement rounds before
+    applying the disagreement budget below.
 - **During stage 4** — if it returns `BLOCKED`, do not fix it yourself and do not rerun it
-  with encouragement. Read `03-impl-notes.md`, take the decision it needs to the user, then
-  go back to stage 2.
+  with encouragement. Read `03-impl-notes.md`, decide the open question yourself, and go
+  back to stage 2 with your decision. Do not stop to ask the user. Pick the option that
+  keeps the change smallest and most reversible; when the scope answers or `01-plan.md`
+  already imply a direction, follow it. Record the call in `00-scope.md` under an
+  `## Orchestrator decisions` heading — creating that file if tier 1 means it doesn't
+  exist yet — mark it binding, and add it to stage 2's inputs. Tell the user what you
+  decided in the final report, not before.
 - **After stage 5** — `BLOCK` sends the blocking findings back to stage 4 (inputs:
-  `01-plan.md`, `02-plan-review.md`, `04-code-review.md`). Non-blocking findings get
-  recorded and left alone.
+  `01-plan.md`, `02-plan-review.md` if it exists, `04-code-review.md`). Non-blocking
+  findings get recorded and left alone.
 - **After stage 6** — `FIXED` is fine. `ESCALATED` goes back to stage 2, not stage 4:
   if the plan didn't cover it, implementing a fix means designing without a plan.
   Only `PASS` or `FIXED` may enter stage 7. Enter it immediately without asking the user
@@ -134,8 +164,35 @@ Hold these yourself between stages. A gate the orchestrator waves through is not
   a `must-fix` it replied to but didn't fix, scope creep, or its own three-round budget —
   hand that to the user instead of rerunning it.
 
-**Loop budget:** if any stage is about to be entered a fifth time, stop. Hand the user a
-summary of what keeps failing and what the two models disagree about. The user can decide who is right. Give the user the context they need to answer. One or two sentences of the facts the question rests on, before the question itself. Do not assume the user already holds them.Use plain language. One idea per sentence. Short sentences. Active voice. The same word for the same thing every time. Define a term at first use, or pick a plainer one. Where the project has a `CONTEXT.md`, use its words for domain terms. Stopping here is only asking the user to arbitrate a disagreement between two models, it is not stopping the overall implementation.
+**Disagreement budget:** allow two consecutive stage 2/stage 3 disagreement rounds. If
+the models still disagree and a third round would begin, do not stop the run and do not
+ask the user. Arbitrate yourself: read `01-plan.md` and `02-plan-review.md`, and pick the
+approach with the better correctness argument. When correctness is a wash, pick the
+smaller, more reversible one. A reviewer objection that names a specific file, line, or
+caller beats a planner objection that argues from the plan's own account of the code.
+
+Record the selected approach in `02-plan-review.md` under an `## Orchestrator arbitration`
+heading, with the reason, mark it as binding, and continue with stage 2. The selected
+approach settles that disagreement unless later stages uncover new correctness evidence.
+A disagreement, an exhausted disagreement budget, or a model repeating a settled objection
+is never a reason to end the pipeline.
+
+**Loop budgets.** Nothing pauses for a human any more, so every loop needs its own
+terminator. Count rounds yourself and enforce these:
+
+| Loop | Budget | When it runs out |
+|---|---|---|
+| stage 2 ↔ stage 3 | 2 rounds | Arbitrate, as above, and continue |
+| stage 5 → stage 4 | 2 rounds | Record the remaining findings as non-blocking, note them in the report, and continue to stage 6 |
+| stage 6 → stage 2 | 2 rounds | Stop the run. Report the escalation and leave the branch unmerged |
+| whole pipeline | 20 stage calls | Stop the run and report where the calls went |
+
+Two of those exits stop the pipeline, which the rest of this document tells you not to do.
+The difference is that these are terminal and reported, not a mid-run question. A loop with
+no exit is not autonomy; it is a run that never ends and nobody is watching.
+
+A stage 6 escalation that survives two replans is a design problem the pipeline cannot
+solve by trying harder. Say what keeps failing and hand it over.
 
 ## 5. Report
 
@@ -145,6 +202,9 @@ When the run finishes, give the user:
 - Stage 3 verdict, stage 5 verdict, stage 6 status.
 - The PR URL and whether auto-merge is enabled, if stage 7 ran.
 - Anything escalated or left uncovered.
+- Every decision you made on the user's behalf — scope answers, stage 2/3 arbitration,
+  stage 4 `BLOCKED` calls — each with its reason, in one line apiece. This is the part
+  the user most needs to check, so do not bury it.
 - The path to the run directory.
 
 Then append one line to `.copilot/runs/log.md`:
